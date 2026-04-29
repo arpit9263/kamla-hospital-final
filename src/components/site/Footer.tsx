@@ -17,13 +17,41 @@ const Footer = () => {
 
   return (
     <footer className="relative mt-20 text-white overflow-hidden">
-      {/* Animated gradient background */}
+      {/* Top curved divider */}
+      <div className="absolute inset-x-0 -top-px z-10 pointer-events-none rotate-180">
+        <svg viewBox="0 0 1440 80" preserveAspectRatio="none" className="w-full h-10 md:h-14 fill-background">
+          <path d="M0,80 C240,20 480,0 720,20 C960,40 1200,70 1440,30 L1440,80 Z" />
+        </svg>
+      </div>
+
+      {/* Rich layered background */}
       <div className="absolute inset-0 bg-animated-hero" aria-hidden="true" />
+      {/* Radial glows for depth */}
+      <div
+        className="absolute inset-0 opacity-80"
+        aria-hidden="true"
+        style={{
+          background:
+            "radial-gradient(ellipse 80% 50% at 20% 0%, hsl(248 80% 35% / 0.55), transparent 60%), radial-gradient(ellipse 60% 50% at 90% 100%, hsl(258 70% 30% / 0.5), transparent 60%), radial-gradient(circle at 50% 50%, hsl(248 70% 18% / 0.3), transparent 70%)",
+        }}
+      />
       {/* Grid texture */}
-      <div className="absolute inset-0 bg-grid-soft opacity-40" aria-hidden="true" />
+      <div className="absolute inset-0 bg-grid-soft opacity-[0.18]" aria-hidden="true" />
       {/* Floating blobs */}
-      <div className="absolute -top-32 right-10 w-96 h-96 rounded-full bg-primary-glow/20 blur-3xl animate-blob" aria-hidden="true" />
-      <div className="absolute bottom-0 -left-32 w-[500px] h-[500px] rounded-full bg-yellow-400/8 blur-3xl animate-blob" style={{ animationDelay: "8s" }} aria-hidden="true" />
+      <div className="absolute -top-40 right-10 w-[500px] h-[500px] rounded-full bg-primary-glow/25 blur-3xl animate-blob" aria-hidden="true" />
+      <div className="absolute bottom-0 -left-40 w-[600px] h-[600px] rounded-full bg-yellow-400/10 blur-3xl animate-blob" style={{ animationDelay: "8s" }} aria-hidden="true" />
+      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[700px] h-[700px] rounded-full border border-white/[0.04]" aria-hidden="true" />
+      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[450px] h-[450px] rounded-full border border-white/[0.06]" aria-hidden="true" />
+      {/* Subtle noise via dot pattern */}
+      <div
+        className="absolute inset-0 opacity-30"
+        aria-hidden="true"
+        style={{
+          backgroundImage:
+            "radial-gradient(circle at 1px 1px, rgba(255,255,255,0.06) 1px, transparent 0)",
+          backgroundSize: "24px 24px",
+        }}
+      />
 
       <div className="relative z-10">
         {/* Ayushman Bharat Trust Bar */}
