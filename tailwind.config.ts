@@ -118,6 +118,22 @@ export default {
           "0%": { transform: "translateX(-150%) skewX(-20deg)" },
           "100%": { transform: "translateX(250%) skewX(-20deg)" },
         },
+        "drift-slow": {
+          "0%, 100%": { transform: "translate3d(0,0,0) scale(1)" },
+          "50%": { transform: "translate3d(40px,-30px,0) scale(1.05)" },
+        },
+        "drift-reverse": {
+          "0%, 100%": { transform: "translate3d(0,0,0) scale(1)" },
+          "50%": { transform: "translate3d(-50px,25px,0) scale(1.08)" },
+        },
+        "parallax-y": {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-20px)" },
+        },
+        "glow-pulse": {
+          "0%, 100%": { opacity: "0.55", filter: "blur(60px)" },
+          "50%": { opacity: "0.9", filter: "blur(80px)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -134,6 +150,10 @@ export default {
         "ken-burns": "ken-burns 20s ease-in-out infinite alternate",
         "gradient-shift": "gradient-shift 8s ease infinite",
         "shine": "shine 2.4s ease-in-out infinite",
+        "drift-slow": "drift-slow 22s ease-in-out infinite",
+        "drift-reverse": "drift-reverse 28s ease-in-out infinite",
+        "parallax-y": "parallax-y 14s ease-in-out infinite",
+        "glow-pulse": "glow-pulse 9s ease-in-out infinite",
       },
       transitionTimingFunction: {
         smooth: 'cubic-bezier(0.4, 0, 0.2, 1)',
