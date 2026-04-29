@@ -55,7 +55,7 @@ const Footer = () => {
 
       <div className="relative z-10">
         {/* Ayushman Bharat Trust Bar */}
-        <div className="border-b border-white/10 bg-emerald-950/60 backdrop-blur-sm">
+        <div className="border-b border-white/10 bg-emerald-950/40 backdrop-blur-sm mt-10 md:mt-14">
           <div className="container-tight py-5 flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-4">
               <div className="w-11 h-11 rounded-xl bg-emerald-700/60 flex items-center justify-center shrink-0 ring-1 ring-emerald-400/30">
