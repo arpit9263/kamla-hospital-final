@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-label="Kamla Hospital">
+  <defs>
+    <linearGradient id="kamlaGrad" x1="8" y1="6" x2="58" y2="60" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#10B981"/>
+      <stop offset="55%" stop-color="#0EA5A5"/>
+      <stop offset="100%" stop-color="#1E5FBF"/>
+    </linearGradient>
+  </defs>
+  <!-- Shield -->
+  <path
+    d="M32 4 L54 11 V30 C54 44 44 54 32 60 C20 54 10 44 10 30 V11 Z"
+    fill="none" stroke="url(#kamlaGrad)" stroke-width="3" stroke-linejoin="round"/>
+  <!-- Lotus: side petals -->
+  <path d="M22 38 C18 34 18 28 22 22 C26 28 26 34 22 38 Z"
+    fill="none" stroke="url(#kamlaGrad)" stroke-width="2.4" stroke-linejoin="round"/>
+  <path d="M42 38 C46 34 46 28 42 22 C38 28 38 34 42 38 Z"
+    fill="none" stroke="url(#kamlaGrad)" stroke-width="2.4" stroke-linejoin="round"/>
+  <!-- Lotus: center petal -->
+  <path d="M32 14 C37 22 37 32 32 42 C27 32 27 22 32 14 Z"
+    fill="none" stroke="url(#kamlaGrad)" stroke-width="2.4" stroke-linejoin="round"/>
+  <!-- Heartbeat pulse across base -->
+  <path d="M14 46 H24 L27 40 L31 50 L35 36 L39 46 H50"
+    fill="none" stroke="url(#kamlaGrad)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
