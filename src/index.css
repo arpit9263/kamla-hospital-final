@@ -143,4 +143,34 @@
     background: var(--gradient-gold);
     @apply text-foreground font-bold rounded-full shadow-medium hover:opacity-90 transition-all;
   }
+  /* Pause marquee on hover */
+  .marquee-track:hover {
+    animation-play-state: paused;
+  }
+  /* Fade mask for marquee edges */
+  .mask-fade-x {
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+            mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+  }
+  /* Animated multi-color gradient (used for footer/hero accents) */
+  .bg-animated-hero {
+    background: linear-gradient(120deg, hsl(248 70% 14%), hsl(258 65% 26%), hsl(248 70% 18%), hsl(220 60% 22%));
+    background-size: 300% 300%;
+    animation: gradient-shift 14s ease infinite;
+  }
+  /* Subtle grid texture */
+  .bg-grid-soft {
+    background-image:
+      linear-gradient(hsl(0 0% 100% / 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(0 0% 100% / 0.05) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+  /* Card hover lift */
+  .lift-on-hover {
+    @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-strong;
+  }
+  /* Shine sweep on hover containers — child .shine-el animates */
+  .group:hover .shine-el {
+    animation: shine 1.1s ease-out;
+  }
 }
