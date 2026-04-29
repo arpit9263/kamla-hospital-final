@@ -34,9 +34,9 @@ const departmentsMenu = [
 
 const dropdownVariants = {
   hidden:  { opacity: 0, y: -6, scale: 0.98 },
-  visible: { opacity: 1, y: 0,  scale: 1,    transition: { duration: 0.2, ease: "easeOut" } },
-  exit:    { opacity: 0, y: -4, scale: 0.98, transition: { duration: 0.15, ease: "easeIn" } },
-};
+  visible: { opacity: 1, y: 0,  scale: 1,    transition: { duration: 0.2, ease: [0.22, 1, 0.36, 1] } },
+  exit:    { opacity: 0, y: -4, scale: 0.98, transition: { duration: 0.15, ease: [0.4, 0, 1, 1] } },
+} as const;
 
 const ServicesDropdown = () => (
   <motion.div
