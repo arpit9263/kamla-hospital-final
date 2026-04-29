@@ -224,7 +224,7 @@ const Hero = () => {
         </div>
 
         {/* Bottom controls */}
-        <div className="pb-8 md:pb-10">
+        <div className="pb-16 md:pb-24">
           {/* Progress bars */}
           <div className="mb-5 flex items-center gap-1.5">
             {slides.map((item, i) => (
