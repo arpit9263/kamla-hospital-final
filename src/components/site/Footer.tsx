@@ -77,29 +77,37 @@ const Footer = () => {
       <div className="absolute inset-0 bg-[hsl(248_75%_8%)]/35" aria-hidden="true" />
 
       <div className="relative z-10">
-        {/* Ayushman Bharat Trust Bar */}
-        <div className="border-b border-white/10 bg-emerald-950/40 backdrop-blur-sm mt-10 md:mt-14">
-          <div className="container-tight py-5 flex flex-col md:flex-row items-center justify-between gap-4">
-            <div className="flex items-center gap-4">
-              <div className="w-11 h-11 rounded-xl bg-emerald-700/60 flex items-center justify-center shrink-0 ring-1 ring-emerald-400/30">
-                <Shield className="w-5 h-5 text-yellow-300" />
-              </div>
-              <div>
-                <p className="font-display font-bold text-sm text-white">Ayushman Bharat Empaneled Hospital</p>
-                <p className="text-xs text-white/55 mt-0.5">Registered under Pradhan Mantri Jan Arogya Yojana (PM-JAY)</p>
-              </div>
-            </div>
-            <div className="flex flex-wrap items-center gap-5 text-xs text-white/65">
-              {["Cashless Treatment", "₹5 Lakh Coverage", "All Govt. Schemes Accepted"].map((item) => (
-                <div key={item} className="flex items-center gap-1.5">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-                  <span>{item}</span>
+        {/* Ayushman Bharat Trust Card */}
+        <div className="container-tight pt-14 md:pt-16">
+          <div className="relative overflow-hidden rounded-[1.75rem] border border-[hsl(var(--primary-foreground)/0.14)] bg-[hsl(var(--primary)/0.34)] shadow-glow backdrop-blur-2xl">
+            <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[hsl(var(--gold)/0.9)] to-transparent" aria-hidden="true" />
+            <div className="absolute -left-20 top-1/2 h-40 w-40 -translate-y-1/2 rounded-full bg-[hsl(var(--gold)/0.14)] blur-3xl animate-glow-pulse" aria-hidden="true" />
+            <div className="absolute -right-16 -top-16 h-44 w-44 rounded-full bg-[hsl(var(--primary-glow)/0.28)] blur-3xl animate-drift-reverse" aria-hidden="true" />
+            <div className="relative grid gap-5 p-5 md:grid-cols-[1.35fr_1.7fr_auto] md:items-center md:p-6 lg:p-7">
+              <div className="flex items-center gap-4">
+                <div className="relative flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-gold shadow-medium ring-1 ring-[hsl(var(--primary-foreground)/0.25)]">
+                  <span className="absolute inset-0 rounded-2xl bg-[hsl(var(--primary-foreground)/0.18)] animate-pulse" aria-hidden="true" />
+                  <Shield className="relative h-6 w-6 text-gold-foreground" />
                 </div>
-              ))}
-            </div>
-            <div className="text-xs text-white/55 flex items-center gap-2 shrink-0">
-              <Phone className="w-3.5 h-3.5 text-emerald-400" />
-              <span>Ayushman Helpline: <strong className="text-white">14555</strong></span>
+                <div>
+                  <p className="font-display text-base font-extrabold text-[hsl(var(--primary-foreground))] md:text-lg">Ayushman Bharat Empaneled</p>
+                  <p className="mt-1 text-xs leading-relaxed text-[hsl(var(--primary-foreground)/0.66)]">PM-JAY support for eligible patients at Kamla Hospital.</p>
+                </div>
+              </div>
+
+              <div className="grid gap-2 sm:grid-cols-3">
+                {["Cashless treatment", "₹5 lakh coverage", "Govt. schemes accepted"].map((item) => (
+                  <div key={item} className="flex min-h-11 items-center gap-2 rounded-2xl border border-[hsl(var(--primary-foreground)/0.12)] bg-[hsl(var(--primary-foreground)/0.07)] px-3 py-2 text-xs font-semibold text-[hsl(var(--primary-foreground)/0.82)]">
+                    <CheckCircle2 className="h-4 w-4 shrink-0 text-gold" />
+                    <span>{item}</span>
+                  </div>
+                ))}
+              </div>
+
+              <Link to="/ayushman-bharat" className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-[hsl(var(--primary-foreground))] px-5 text-sm font-bold text-primary shadow-medium transition-all duration-300 hover:-translate-y-0.5 hover:bg-gold hover:text-gold-foreground">
+                <Phone className="h-4 w-4" />
+                Helpline 14555
+              </Link>
             </div>
           </div>
         </div>
