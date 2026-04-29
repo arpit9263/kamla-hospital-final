@@ -21,7 +21,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <Header />
-      <main className="flex-1 pt-16 md:pt-[4.5rem]">{children}</main>
+      <main className="flex-1 pt-20 md:pt-[128px]">{children}</main>
       <Footer />
 
       {/* Emergency floating button */}
