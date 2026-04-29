@@ -8,7 +8,7 @@ import doc7 from "@/assets/AnkurNeekhra.jpeg";
 import doc8 from "@/assets/rajatMisuriya.jpeg";
 import doc9 from "@/assets/neelamKumari.jpeg";
 import doc10 from "@/assets/amanjeetSingh.jpeg";
-import logo from "@/assets/kamla-logo.jpeg";
+import logo from "@/assets/kamla-logo.svg";
 import exterior from "@/assets/kamla-exterior.jpeg";
 import exteriorWide from "@/assets/kamla-exterior-wide.jpeg";
 import ultrasound from "@/assets/kamla-ultrasound.jpeg";
