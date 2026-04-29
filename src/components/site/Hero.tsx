@@ -170,10 +170,10 @@ const Hero = () => {
                   {/* Headline */}
                   <h1
                     className="mb-5 font-display text-4xl font-extrabold leading-[1.05] tracking-tight sm:text-5xl lg:text-6xl xl:text-7xl"
-                    style={{ textShadow: "0 2px 24px hsl(0 0% 0% / 0.5)" }}
+                    style={{ textShadow: "0 4px 32px hsl(0 0% 0% / 0.6)" }}
                   >
                     {slide.titleStart}{" "}
-                    <em className="not-italic text-primary-glow">{slide.titleAccent}</em>
+                    <em className="not-italic bg-gradient-to-r from-yellow-300 via-yellow-200 to-amber-300 bg-clip-text text-transparent drop-shadow-[0_2px_12px_rgba(250,204,21,0.4)]">{slide.titleAccent}</em>
                     {slide.titleEnd}
                   </h1>
 
