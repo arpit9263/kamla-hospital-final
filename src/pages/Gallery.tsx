@@ -25,6 +25,32 @@ const Gallery = () => {
         subtitle="Explore our hospital building, diagnostic services, wards, operation theatre and patient care spaces."
       />
 
+      {/* Featured Video */}
+      <section className="pt-16 md:pt-20">
+        <div className="container-tight">
+          <div className="relative group rounded-[2rem] overflow-hidden shadow-strong">
+            <div className="absolute -inset-2 bg-gradient-to-tr from-primary/40 via-yellow-300/30 to-primary-glow/40 blur-2xl opacity-60 group-hover:opacity-90 transition-opacity rounded-[2rem]" />
+            <div className="relative aspect-video">
+              <video
+                autoPlay
+                muted
+                loop
+                playsInline
+                className="w-full h-full object-cover"
+              >
+                <source src="https://cdn.coverr.co/videos/coverr-doctors-walking-in-hospital-hallway-7251/1080p.mp4" type="video/mp4" />
+              </video>
+              <div className="absolute inset-0 bg-gradient-to-t from-primary/85 via-primary/20 to-transparent pointer-events-none" />
+              <div className="absolute left-6 right-6 bottom-6 md:left-10 md:bottom-10 text-white pointer-events-none">
+                <p className="text-[10px] uppercase tracking-[0.25em] text-yellow-300 font-bold mb-2">★ Featured Tour</p>
+                <h2 className="font-display text-2xl md:text-4xl font-extrabold mb-2 max-w-xl">Take a virtual walk through Kamla Hospital</h2>
+                <p className="text-white/85 text-sm max-w-lg">Modern facilities, compassionate care and advanced diagnostics — all under one roof.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section className="section-padding">
         <div className="container-tight">
           {/* Category filters */}
