@@ -300,8 +300,8 @@ const Hero = () => {
       </div>
 
       {/* Decorative bottom curve divider */}
-      <div className="absolute inset-x-0 bottom-0 z-10 pointer-events-none">
-        <svg viewBox="0 0 1440 80" preserveAspectRatio="none" className="w-full h-12 md:h-16 fill-background">
+      <div className="absolute inset-x-0 bottom-0 z-[5] pointer-events-none">
+        <svg viewBox="0 0 1440 80" preserveAspectRatio="none" className="w-full h-10 md:h-14 fill-background">
           <path d="M0,80 C240,20 480,0 720,20 C960,40 1200,70 1440,30 L1440,80 Z" />
         </svg>
       </div>
