@@ -102,12 +102,18 @@ const Hero = () => {
       />
 
       {/* Multi-layer overlays for strong legibility */}
-      <div className="absolute inset-0 bg-gradient-to-r from-foreground/90 via-foreground/65 to-foreground/20 pointer-events-none" />
-      <div className="absolute inset-0 bg-gradient-to-t from-foreground/85 via-foreground/20 to-transparent pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-r from-foreground/95 via-foreground/70 to-foreground/25 pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-t from-foreground/90 via-foreground/25 to-transparent pointer-events-none" />
+      {/* Brand color wash for richness */}
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/40 via-transparent to-transparent mix-blend-multiply pointer-events-none" />
+      {/* Subtle grid texture */}
+      <div className="absolute inset-0 bg-grid-soft opacity-30 pointer-events-none" />
       {/* Vignette top */}
-      <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-foreground/40 to-transparent pointer-events-none" />
-      {/* Accent glow bottom-right */}
-      <div className="absolute -bottom-40 -right-40 h-[700px] w-[700px] rounded-full bg-primary/20 blur-[100px] pointer-events-none" />
+      <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-foreground/50 to-transparent pointer-events-none" />
+      {/* Animated accent blobs */}
+      <div className="absolute -bottom-40 -right-40 h-[700px] w-[700px] rounded-full bg-primary/30 blur-[100px] pointer-events-none animate-blob" />
+      <div className="absolute top-1/4 -left-32 h-[500px] w-[500px] rounded-full bg-primary-glow/20 blur-[120px] pointer-events-none animate-blob" style={{ animationDelay: "6s" }} />
+      <div className="absolute top-10 right-1/3 h-[280px] w-[280px] rounded-full bg-yellow-400/10 blur-[80px] pointer-events-none" />
 
       <div className="relative z-10 h-full container-tight flex flex-col">
 
