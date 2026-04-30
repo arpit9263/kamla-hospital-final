@@ -30,7 +30,7 @@ const HeroCurtainStage = ({ currentSlide, previousSlide, transitionId, reduceMot
               draggable={false}
             />
             {/* Strong overlay on previous slide during exit */}
-            <div className="absolute inset-0 bg-foreground/60" />
+            <div className="absolute inset-0 bg-foreground/30" />
           </motion.div>
         )}
       </AnimatePresence>

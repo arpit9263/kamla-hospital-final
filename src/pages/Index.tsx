@@ -80,7 +80,7 @@ const Index = () => {
       <Hero />
 
       {/* Emergency + Ayushman cards strip */}
-      <section className="relative mt-8 lg:-mt-12 z-20">
+      <section className="relative mt-6 md:mt-10 z-20">
         <div className="container-tight">
           <div className="grid md:grid-cols-2 gap-4 md:gap-5">
             {/* Emergency Card */}
