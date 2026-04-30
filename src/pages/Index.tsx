@@ -7,6 +7,7 @@ import Testimonials from "@/components/site/Testimonials";
 import FAQ from "@/components/site/FAQ";
 import AyushmanSection from "@/components/site/AyushmanSection";
 import AboutSection from "@/components/site/AboutSection";
+import StatsSection from "@/components/site/StatsSection";
 import { Button } from "@/components/ui/button";
 import {
   ArrowRight,
@@ -142,20 +143,24 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Quick Stats Bar */}
-      <section className="py-8 border-b border-border bg-card">
+      {/* Premium KPI / Stats Section */}
+      <StatsSection />
+
+      {/* Insurance & Cashless Partners */}
+      <section className="py-10 border-y border-border bg-card">
         <div className="container-tight">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {quickStats.map((s) => (
-              <div key={s.label} className="flex items-center gap-3">
-                <div className="w-11 h-11 rounded-xl bg-primary/10 text-primary flex items-center justify-center shrink-0">
-                  <s.icon className="w-5 h-5" />
-                </div>
-                <div>
-                  <p className="font-display font-extrabold text-xl text-primary">{s.value}</p>
-                  <p className="text-xs text-muted-foreground font-medium">{s.label}</p>
-                </div>
-              </div>
+          <p className="text-center text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground mb-6">
+            Cashless & Insurance Partners
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-3 md:gap-4">
+            {hospitalInfo.insurancePartners.map((p) => (
+              <span
+                key={p}
+                className="inline-flex items-center gap-2 rounded-full border border-border bg-background px-4 py-2 text-sm font-semibold text-foreground/80 hover:border-primary/40 hover:text-primary hover:shadow-soft transition-all"
+              >
+                <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
+                {p}
+              </span>
             ))}
           </div>
         </div>
