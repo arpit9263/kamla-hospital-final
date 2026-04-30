@@ -3,7 +3,7 @@ import Layout from "@/components/site/Layout";
 import PageHeader from "@/components/site/PageHeader";
 import { Button } from "@/components/ui/button";
 import { X, ChevronLeft, ChevronRight, ZoomIn } from "lucide-react";
-import { galleryItems } from "@/data/hospital";
+import { galleryItems, hospitalInfo } from "@/data/hospital";
 
 const cats = ["All", "Hospital", "Doctors", "Facilities", "Events"] as const;
 
@@ -30,16 +30,31 @@ const Gallery = () => {
         <div className="container-tight">
           <div className="relative group rounded-[2rem] overflow-hidden shadow-strong">
             <div className="absolute -inset-2 bg-gradient-to-tr from-primary/40 via-yellow-300/30 to-primary-glow/40 blur-2xl opacity-60 group-hover:opacity-90 transition-opacity rounded-[2rem]" />
-            <div className="relative aspect-video">
+            <div className="relative aspect-video bg-primary/10">
               <video
                 autoPlay
                 muted
                 loop
                 playsInline
+                poster={hospitalInfo.images.exteriorWide}
                 className="w-full h-full object-cover"
               >
-                <source src="https://cdn.coverr.co/videos/coverr-doctors-walking-in-hospital-hallway-7251/1080p.mp4" type="video/mp4" />
+                <source
+                  src="https://videos.pexels.com/video-files/4769449/4769449-uhd_2560_1440_25fps.mp4"
+                  type="video/mp4"
+                />
+                <source
+                  src="https://cdn.pixabay.com/video/2020/09/08/49375-458855661_large.mp4"
+                  type="video/mp4"
+                />
               </video>
+              {/* Fallback image (shown if video fails to load) */}
+              <img
+                src={hospitalInfo.images.exteriorWide}
+                alt="Kamla Hospital virtual tour"
+                className="absolute inset-0 w-full h-full object-cover -z-10"
+                loading="lazy"
+              />
               <div className="absolute inset-0 bg-gradient-to-t from-primary/85 via-primary/20 to-transparent pointer-events-none" />
               <div className="absolute left-6 right-6 bottom-6 md:left-10 md:bottom-10 text-white pointer-events-none">
                 <p className="text-[10px] uppercase tracking-[0.25em] text-yellow-300 font-bold mb-2">★ Featured Tour</p>
