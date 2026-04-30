@@ -23,7 +23,6 @@ import {
   Phone,
   Calendar,
   MapPin,
-  Star,
   ChevronRight,
   Stethoscope,
   FlaskConical,
@@ -31,6 +30,11 @@ import {
   Heart,
 } from "lucide-react";
 import { doctors, hospitalInfo, galleryItems } from "@/data/hospital";
+import certNabh from "@/assets/cert-nabh.svg";
+import certIso from "@/assets/cert-iso.svg";
+import certJci from "@/assets/cert-jci.svg";
+import certPmjay from "@/assets/cert-pmjay.svg";
+import certGreenOt from "@/assets/cert-greenot.svg";
 
 const whyUs = [
   {
@@ -68,6 +72,13 @@ const facilities = [
   { icon: Shield, name: "Ayushman Bharat", desc: "PM-JAY empaneled" },
 ];
 
+const accreditations = [
+  { src: certNabh,    label: "NABH Accredited",   sub: "National quality standards" },
+  { src: certJci,     label: "JCI Certified",     sub: "International healthcare" },
+  { src: certIso,     label: "ISO 9001:2015",     sub: "Quality management" },
+  { src: certGreenOt, label: "Green OT Certified", sub: "Eco-surgical standards" },
+  { src: certPmjay,   label: "PM-JAY Empaneled",  sub: "Ayushman Bharat" },
+];
 
 const Index = () => {
   return (
@@ -137,73 +148,11 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Premium KPI / Stats Section */}
-      <StatsSection />
-
-      {/* Insurance & Cashless Partners */}
-      <section className="py-10 border-y border-border bg-card">
-        <div className="container-tight">
-          <p className="text-center text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground mb-6">
-            Cashless & Insurance Partners
-          </p>
-          <div className="flex flex-wrap items-center justify-center gap-3 md:gap-4">
-            {hospitalInfo.insurancePartners.map((p) => (
-              <span
-                key={p}
-                className="inline-flex items-center gap-2 rounded-full border border-border bg-background px-4 py-2 text-sm font-semibold text-foreground/80 hover:border-primary/40 hover:text-primary hover:shadow-soft transition-all"
-              >
-                <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
-                {p}
-              </span>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Book Appointment CTA Banner */}
-      <section className="section-padding bg-gradient-soft">
-        <div className="container-tight">
-          <div className="relative overflow-hidden rounded-[2rem] bg-primary p-8 md:p-12">
-            {/* Decorative circles */}
-            <div className="absolute -top-20 -right-20 w-80 h-80 rounded-full bg-white/5" />
-            <div className="absolute -bottom-16 -left-16 w-64 h-64 rounded-full bg-white/5" />
-            <div className="absolute top-1/2 right-1/4 w-32 h-32 rounded-full bg-white/5" />
-            <div className="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
-              <div className="max-w-2xl">
-                <p className="text-white/70 font-semibold text-sm uppercase tracking-wider mb-2">Book Your Visit</p>
-                <h2 className="font-display text-3xl md:text-4xl font-extrabold text-white mb-3">
-                  Schedule an Appointment Today
-                </h2>
-                <p className="text-white/80 text-base leading-relaxed">
-                  Consult with our specialist doctors during OPD hours (10:00 AM – 7:00 PM) or reach out for emergency care any time.
-                </p>
-                <div className="flex flex-wrap gap-3 mt-5">
-                  {["Same Day Appointments", "Specialist Consultation", "No Long Waits"].map((f) => (
-                    <span key={f} className="flex items-center gap-1.5 text-xs text-white/80">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-green-400" /> {f}
-                    </span>
-                  ))}
-                </div>
-              </div>
-              <div className="flex flex-col gap-3 shrink-0">
-                <Button asChild size="lg" className="bg-white text-primary font-bold hover:bg-white/95 rounded-full px-8 shadow-strong">
-                  <Link to="/appointment">
-                    <Calendar className="w-4 h-4 mr-2" /> Book Appointment
-                  </Link>
-                </Button>
-                <a href={`tel:${hospitalInfo.phone.reception}`}
-                  className="flex items-center justify-center gap-2 text-white/80 hover:text-white text-sm font-medium transition-colors"
-                >
-                  <Phone className="w-4 h-4" /> Or call {hospitalInfo.phone.reception}
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* About Kamla */}
       <AboutSection />
+
+      {/* Premium KPI / Stats Section */}
+      <StatsSection />
 
       {/* Why Choose Us */}
       <section className="section-padding">
@@ -259,8 +208,29 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Our Facilities */}
+      {/* Doctors */}
       <section className="section-padding">
+        <div className="container-tight">
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
+            <div className="max-w-xl">
+              <p className="text-sm font-bold uppercase tracking-[0.2em] text-primary mb-3">Our Team</p>
+              <h2 className="font-display text-3xl md:text-5xl font-extrabold">Meet our specialists</h2>
+              <p className="text-muted-foreground mt-2">Experienced, qualified and compassionate doctors dedicated to your wellbeing.</p>
+            </div>
+            <Button asChild variant="outline" className="rounded-full border-primary/30 text-primary hover:bg-primary hover:text-white transition-all">
+              <Link to="/doctors">View All Doctors <ArrowRight className="w-4 h-4" /></Link>
+            </Button>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {doctors.slice(0, 4).map((d, i) => (
+              <DoctorCard key={d.id} doctor={d} index={i} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Our Facilities */}
+      <section className="section-padding bg-gradient-soft">
         <div className="container-tight">
           <div className="text-center max-w-xl mx-auto mb-12">
             <p className="text-sm font-bold uppercase tracking-[0.2em] text-primary mb-3">Our Facilities</p>
@@ -292,45 +262,53 @@ const Index = () => {
       {/* Ayushman Bharat Short Section */}
       <AyushmanSection />
 
-      {/* Doctors */}
-      <section className="section-padding">
+      {/* Accreditations & Certifications — real badge logos */}
+      <section className="section-padding bg-card border-y border-border">
         <div className="container-tight">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
-            <div className="max-w-xl">
-              <p className="text-sm font-bold uppercase tracking-[0.2em] text-primary mb-3">Our Team</p>
-              <h2 className="font-display text-3xl md:text-5xl font-extrabold">Meet our specialists</h2>
-              <p className="text-muted-foreground mt-2">Experienced, qualified and compassionate doctors dedicated to your wellbeing.</p>
-            </div>
-            <Button asChild variant="outline" className="rounded-full border-primary/30 text-primary hover:bg-primary hover:text-white transition-all">
-              <Link to="/doctors">View All Doctors <ArrowRight className="w-4 h-4" /></Link>
-            </Button>
+          <div className="text-center max-w-xl mx-auto mb-10 md:mb-12">
+            <p className="text-xs font-bold uppercase tracking-[0.25em] text-primary mb-3">Accreditations & Certifications</p>
+            <h2 className="font-display text-3xl md:text-4xl font-extrabold">Trusted, certified, accredited</h2>
+            <p className="text-muted-foreground mt-3 text-sm md:text-base">
+              Recognized for clinical excellence and patient safety by India's leading healthcare authorities.
+            </p>
           </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {doctors.slice(0, 4).map((d, i) => (
-              <DoctorCard key={d.id} doctor={d} index={i} />
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-5 md:gap-6">
+            {accreditations.map((a) => (
+              <div
+                key={a.label}
+                className="group flex flex-col items-center text-center p-5 rounded-2xl bg-background border border-border hover:border-primary/30 hover:shadow-soft transition-all"
+              >
+                <img
+                  src={a.src}
+                  alt={`${a.label} certification badge`}
+                  width={120}
+                  height={120}
+                  loading="lazy"
+                  className="w-24 h-24 md:w-28 md:h-28 object-contain group-hover:scale-105 transition-transform duration-300"
+                />
+                <p className="font-display font-bold text-sm mt-3">{a.label}</p>
+                <p className="text-[11px] text-muted-foreground mt-0.5">{a.sub}</p>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Trust Badges */}
-      <section className="py-12 border-y border-border bg-card">
+      {/* Insurance & Cashless Partners */}
+      <section className="py-10 bg-background border-b border-border">
         <div className="container-tight">
-          <p className="text-center text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground mb-8">Accreditations & Certifications</p>
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-6 items-center text-center">
-            {[
-              { icon: ShieldCheck, label: "NABH Accredited", color: "text-primary" },
-              { icon: Award, label: "JCI Certified", color: "text-primary" },
-              { icon: Activity, label: "ISO 9001:2015", color: "text-primary" },
-              { icon: HeartHandshake, label: "Green OT Certified", color: "text-primary" },
-              { icon: Shield, label: "PM-JAY Empaneled", color: "text-emerald-600" },
-            ].map((b, i) => (
-              <div key={i} className="flex flex-col items-center gap-2 text-muted-foreground">
-                <div className={`w-12 h-12 rounded-full bg-primary/8 flex items-center justify-center ${b.color}`}>
-                  <b.icon className="w-6 h-6" />
-                </div>
-                <p className={`text-sm font-semibold ${b.color}`}>{b.label}</p>
-              </div>
+          <p className="text-center text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground mb-6">
+            Cashless & Insurance Partners
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-3 md:gap-4">
+            {hospitalInfo.insurancePartners.map((p) => (
+              <span
+                key={p}
+                className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-4 py-2 text-sm font-semibold text-foreground/80 hover:border-primary/40 hover:text-primary hover:shadow-soft transition-all"
+              >
+                <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
+                {p}
+              </span>
             ))}
           </div>
         </div>
@@ -352,7 +330,7 @@ const Index = () => {
           <div className="grid grid-cols-2 md:grid-cols-4 grid-rows-2 gap-3 md:gap-4 h-[440px] md:h-[480px]">
             {galleryItems.slice(0, 5).map((item, i) => {
               const spans = [
-                "col-span-2 row-span-2",     // big left
+                "col-span-2 row-span-2",
                 "col-span-1 row-span-1",
                 "col-span-1 row-span-1",
                 "col-span-1 row-span-1",
@@ -371,20 +349,15 @@ const Index = () => {
                     className="w-full h-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-110 group-hover:rotate-1"
                     loading="lazy"
                   />
-                  {/* Always-on subtle overlay */}
                   <div className="absolute inset-0 bg-gradient-to-t from-primary/70 via-primary/10 to-transparent" />
-                  {/* Hover overlay deepens */}
                   <div className="absolute inset-0 bg-gradient-to-br from-primary/60 to-primary/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                  {/* Shine sweep */}
                   <div className="absolute inset-0 overflow-hidden pointer-events-none">
                     <span className="shine-el absolute inset-y-0 -left-1/2 w-1/3 bg-gradient-to-r from-transparent via-white/30 to-transparent" />
                   </div>
-                  {/* Caption */}
                   <div className="absolute left-4 right-4 bottom-4 text-white transform translate-y-1 group-hover:translate-y-0 transition-transform duration-500">
                     <p className="text-[10px] uppercase tracking-widest text-white/80">{item.category}</p>
                     <h3 className="font-display font-bold text-sm md:text-base leading-tight">{item.title}</h3>
                   </div>
-                  {/* Plus badge on hover */}
                   <div className="absolute top-4 right-4 w-9 h-9 rounded-full bg-white/15 backdrop-blur-sm border border-white/30 flex items-center justify-center text-white opacity-0 group-hover:opacity-100 group-hover:scale-100 scale-75 transition-all duration-300">
                     <ArrowRight className="w-4 h-4 -rotate-45" />
                   </div>
@@ -439,7 +412,14 @@ const Index = () => {
                 poster={hospitalInfo.images.exteriorWide}
                 className="w-full h-full object-cover"
               >
-                <source src="https://cdn.coverr.co/videos/coverr-doctors-walking-in-hospital-hallway-7251/1080p.mp4" type="video/mp4" />
+                <source
+                  src="https://videos.pexels.com/video-files/4079098/4079098-uhd_2560_1440_25fps.mp4"
+                  type="video/mp4"
+                />
+                <source
+                  src="https://videos.pexels.com/video-files/4769449/4769449-uhd_2560_1440_25fps.mp4"
+                  type="video/mp4"
+                />
               </video>
               <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
               <div className="absolute bottom-5 left-5 right-5 flex items-center justify-between text-white pointer-events-none">
@@ -458,8 +438,49 @@ const Index = () => {
 
       <Testimonials />
 
-      {/* Quick Contact — Redesigned */}
-      <section className="section-padding bg-gradient-soft relative overflow-hidden">
+      {/* Book Appointment CTA Banner */}
+      <section className="section-padding bg-gradient-soft">
+        <div className="container-tight">
+          <div className="relative overflow-hidden rounded-[2rem] bg-primary p-8 md:p-12">
+            <div className="absolute -top-20 -right-20 w-80 h-80 rounded-full bg-white/5" />
+            <div className="absolute -bottom-16 -left-16 w-64 h-64 rounded-full bg-white/5" />
+            <div className="absolute top-1/2 right-1/4 w-32 h-32 rounded-full bg-white/5" />
+            <div className="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+              <div className="max-w-2xl">
+                <p className="text-white/70 font-semibold text-sm uppercase tracking-wider mb-2">Book Your Visit</p>
+                <h2 className="font-display text-3xl md:text-4xl font-extrabold text-white mb-3">
+                  Schedule an Appointment Today
+                </h2>
+                <p className="text-white/80 text-base leading-relaxed">
+                  Consult with our specialist doctors during OPD hours (10:00 AM – 7:00 PM) or reach out for emergency care any time.
+                </p>
+                <div className="flex flex-wrap gap-3 mt-5">
+                  {["Same Day Appointments", "Specialist Consultation", "No Long Waits"].map((f) => (
+                    <span key={f} className="flex items-center gap-1.5 text-xs text-white/80">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-green-400" /> {f}
+                    </span>
+                  ))}
+                </div>
+              </div>
+              <div className="flex flex-col gap-3 shrink-0">
+                <Button asChild size="lg" className="bg-white text-primary font-bold hover:bg-white/95 rounded-full px-8 shadow-strong">
+                  <Link to="/appointment">
+                    <Calendar className="w-4 h-4 mr-2" /> Book Appointment
+                  </Link>
+                </Button>
+                <a href={`tel:${hospitalInfo.phone.reception}`}
+                  className="flex items-center justify-center gap-2 text-white/80 hover:text-white text-sm font-medium transition-colors"
+                >
+                  <Phone className="w-4 h-4" /> Or call {hospitalInfo.phone.reception}
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Quick Contact */}
+      <section className="section-padding bg-background relative overflow-hidden">
         <div className="absolute -top-32 -right-32 w-96 h-96 rounded-full bg-primary/5 blur-3xl" />
         <div className="absolute -bottom-32 -left-32 w-96 h-96 rounded-full bg-yellow-400/8 blur-3xl" />
 
@@ -508,7 +529,6 @@ const Index = () => {
                 rel="noreferrer"
                 className={`group relative overflow-hidden rounded-3xl bg-card border border-border lift-on-hover p-7 ${c.accent ? "ring-2 ring-red-400/30" : ""}`}
               >
-                {/* Decorative gradient blob */}
                 <div className={`absolute -top-16 -right-16 w-40 h-40 rounded-full bg-gradient-to-br ${c.gradient} opacity-10 group-hover:opacity-25 group-hover:scale-125 transition-all duration-500`} />
 
                 <div className={`relative w-14 h-14 rounded-2xl bg-gradient-to-br ${c.gradient} text-white flex items-center justify-center mb-5 shadow-soft group-hover:shadow-medium group-hover:-rotate-6 transition-all`}>
@@ -524,7 +544,6 @@ const Index = () => {
             ))}
           </div>
 
-          {/* Mini Bar */}
           <div className="max-w-6xl mx-auto mt-6 grid sm:grid-cols-3 gap-3 text-sm">
             <div className="flex items-center gap-3 p-4 rounded-2xl bg-card border border-border">
               <Clock className="w-5 h-5 text-primary shrink-0" />
