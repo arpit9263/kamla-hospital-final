@@ -28,38 +28,76 @@ const Gallery = () => {
       {/* Featured Video */}
       <section className="pt-16 md:pt-20">
         <div className="container-tight">
-          <div className="relative group rounded-[2rem] overflow-hidden shadow-strong">
-            <div className="absolute -inset-2 bg-gradient-to-tr from-primary/40 via-yellow-300/30 to-primary-glow/40 blur-2xl opacity-60 group-hover:opacity-90 transition-opacity rounded-[2rem]" />
-            <div className="relative aspect-video bg-primary/10">
-              <video
-                autoPlay
-                muted
-                loop
-                playsInline
-                poster={hospitalInfo.images.exteriorWide}
-                className="w-full h-full object-cover"
-              >
-                <source
-                  src="https://videos.pexels.com/video-files/4769449/4769449-uhd_2560_1440_25fps.mp4"
-                  type="video/mp4"
+          <div className="grid lg:grid-cols-5 gap-6 lg:gap-8 items-stretch">
+            {/* Video player */}
+            <div className="lg:col-span-3 relative group rounded-[2rem] overflow-hidden shadow-strong">
+              <div className="absolute -inset-2 bg-gradient-to-tr from-primary/30 via-yellow-300/20 to-primary-glow/30 blur-2xl opacity-50 group-hover:opacity-80 transition-opacity rounded-[2rem]" />
+              <div className="relative aspect-video bg-primary/10 rounded-[2rem] overflow-hidden">
+                <video
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  controls
+                  poster={hospitalInfo.images.exteriorWide}
+                  className="w-full h-full object-cover"
+                >
+                  <source
+                    src="https://videos.pexels.com/video-files/4079098/4079098-uhd_2560_1440_25fps.mp4"
+                    type="video/mp4"
+                  />
+                  <source
+                    src="https://videos.pexels.com/video-files/4769449/4769449-uhd_2560_1440_25fps.mp4"
+                    type="video/mp4"
+                  />
+                  <source
+                    src="https://cdn.pixabay.com/video/2020/09/08/49375-458855661_large.mp4"
+                    type="video/mp4"
+                  />
+                </video>
+                <img
+                  src={hospitalInfo.images.exteriorWide}
+                  alt="Kamla Hospital virtual tour"
+                  className="absolute inset-0 w-full h-full object-cover -z-10"
+                  loading="lazy"
                 />
-                <source
-                  src="https://cdn.pixabay.com/video/2020/09/08/49375-458855661_large.mp4"
-                  type="video/mp4"
-                />
-              </video>
-              {/* Fallback image (shown if video fails to load) */}
-              <img
-                src={hospitalInfo.images.exteriorWide}
-                alt="Kamla Hospital virtual tour"
-                className="absolute inset-0 w-full h-full object-cover -z-10"
-                loading="lazy"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-primary/85 via-primary/20 to-transparent pointer-events-none" />
-              <div className="absolute left-6 right-6 bottom-6 md:left-10 md:bottom-10 text-white pointer-events-none">
-                <p className="text-[10px] uppercase tracking-[0.25em] text-yellow-300 font-bold mb-2">★ Featured Tour</p>
-                <h2 className="font-display text-2xl md:text-4xl font-extrabold mb-2 max-w-xl">Take a virtual walk through Kamla Hospital</h2>
-                <p className="text-white/85 text-sm max-w-lg">Modern facilities, compassionate care and advanced diagnostics — all under one roof.</p>
+                {/* Live badge */}
+                <div className="absolute top-4 left-4 flex items-center gap-2 bg-black/55 backdrop-blur-sm rounded-full pl-2 pr-3 py-1.5 text-white pointer-events-none">
+                  <span className="relative flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
+                  </span>
+                  <span className="text-[10px] font-bold uppercase tracking-widest">Tour</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Side info card */}
+            <div className="lg:col-span-2 relative rounded-[2rem] bg-gradient-to-br from-primary to-primary-glow text-white p-7 md:p-9 shadow-strong overflow-hidden flex flex-col justify-between">
+              <div className="absolute -top-16 -right-16 w-56 h-56 rounded-full bg-white/10 blur-2xl" />
+              <div className="absolute -bottom-20 -left-10 w-56 h-56 rounded-full bg-yellow-300/15 blur-2xl" />
+              <div className="relative">
+                <p className="text-[10px] uppercase tracking-[0.25em] text-yellow-300 font-bold mb-3">★ Featured Tour</p>
+                <h2 className="font-display text-2xl md:text-3xl font-extrabold leading-tight mb-3">
+                  Take a virtual walk through <span className="text-yellow-300">Kamla Hospital</span>
+                </h2>
+                <p className="text-white/85 text-sm leading-relaxed">
+                  Step inside our modern facilities — from advanced diagnostics and operation theatres to
+                  comfortable wards and compassionate patient care.
+                </p>
+              </div>
+              <div className="relative grid grid-cols-2 gap-3 mt-6">
+                {[
+                  { k: "120", v: "Hospital Beds" },
+                  { k: "10+", v: "Specialists" },
+                  { k: "24×7", v: "Emergency" },
+                  { k: "40+", v: "Years of Trust" },
+                ].map((s) => (
+                  <div key={s.v} className="rounded-xl bg-white/10 backdrop-blur-sm border border-white/15 px-3 py-2.5">
+                    <p className="font-display font-extrabold text-lg leading-none">{s.k}</p>
+                    <p className="text-[10px] uppercase tracking-wider text-white/70 mt-1">{s.v}</p>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
