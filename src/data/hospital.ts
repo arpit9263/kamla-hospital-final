@@ -36,6 +36,18 @@ export const hospitalInfo = {
   address: "Kamla Hospital, Jhansi, Uttar Pradesh",
   mapQuery: "Kamla Hospital Jhansi",
   images: { exterior, exteriorWide, ultrasound, diagnostic, xray, lab, ward, icu, ot, carm, pharmacy },
+  facilities: {
+    beds: 120,
+    criticalCare: ["ICU", "NICU", "ICCU"],
+    ambulance: true,
+  },
+  insurancePartners: [
+    "Ayushman Bharat",
+    "Pandit Deen Dayal Upadhaya Yojana",
+    "HDFC Ergo",
+    "SBI General",
+    "Universal Sompo",
+  ],
 };
 
 export const departments: Department[] = [

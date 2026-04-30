@@ -215,14 +215,12 @@ const Header = () => {
           {/* Logo — prominent presentation */}
           <Link to="/" className="flex items-center gap-3 group shrink-0">
             <div className="relative">
-              <div className="absolute -inset-1 rounded-2xl bg-gradient-hero opacity-0 group-hover:opacity-15 blur-md transition-opacity duration-500" />
-              <div className="relative bg-white rounded-2xl p-1.5 ring-1 ring-border/60 shadow-soft group-hover:shadow-medium transition-all">
-                <img
-                  src={hospitalInfo.logo}
-                  alt={hospitalInfo.name + " logo"}
-                  className="w-12 h-12 md:w-14 md:h-14 object-contain rounded-xl"
-                />
-              </div>
+              <div className="absolute -inset-1.5 rounded-2xl bg-gradient-hero opacity-0 group-hover:opacity-20 blur-lg transition-opacity duration-500" />
+              <img
+                src={hospitalInfo.logo}
+                alt={hospitalInfo.name + " logo"}
+                className="relative w-12 h-12 md:w-14 md:h-14 object-contain drop-shadow-sm group-hover:scale-105 transition-transform duration-300"
+              />
             </div>
             <div className="hidden sm:block leading-tight">
               <p className="font-display text-lg md:text-xl font-extrabold text-primary tracking-tight">
