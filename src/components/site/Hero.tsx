@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, ChevronRight, Pause, Play, Shield } from "lucide-react";
@@ -6,8 +6,7 @@ import { Button } from "@/components/ui/button";
 import HeroCurtainStage from "@/components/site/hero/HeroCurtainStage";
 import { slides, stats } from "@/components/site/hero/data";
 
-const AUTO_ADVANCE_MS = 3000;
-// const AUTO_ADVANCE_MS = 6500;
+const AUTO_ADVANCE_MS = 6500;
 
 const formatSlideNumber = (value: number) => value.toString().padStart(2, "0");
 
@@ -17,62 +16,38 @@ const Hero = () => {
   const [cycleKey, setCycleKey] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
   const [previousIndex, setPreviousIndex] = useState<number | null>(null);
-  const [progress, setProgress] = useState(0);
-  const indexRef = useRef(0);
-  const timeoutRef = useRef<number | null>(null);
-  const progressIntervalRef = useRef<number | null>(null);
-  const autoplayStartedAtRef = useRef(0);
-  const remainingMsRef = useRef(AUTO_ADVANCE_MS);
-  indexRef.current = index;
-
-  const clearAutoplayTimers = useCallback(() => {
-    if (timeoutRef.current) { window.clearTimeout(timeoutRef.current); timeoutRef.current = null; }
-    if (progressIntervalRef.current) { window.clearInterval(progressIntervalRef.current); progressIntervalRef.current = null; }
-  }, []);
 
   const changeSlide = useCallback((next: number) => {
-    const current = indexRef.current;
-    const target = ((next % slides.length) + slides.length) % slides.length;
-    if (target === current) return;
-    setPreviousIndex(current);
-    setIndex(target);
-    setCycleKey((v) => v + 1);
-    remainingMsRef.current = AUTO_ADVANCE_MS;
-    autoplayStartedAtRef.current = 0;
-    setProgress(0);
+    setIndex((current) => {
+      const target = ((next % slides.length) + slides.length) % slides.length;
+      if (target === current) return current;
+      setPreviousIndex(current);
+      setCycleKey((v) => v + 1);
+      return target;
+    });
   }, []);
 
-  const next = useCallback(() => changeSlide(indexRef.current + 1), [changeSlide]);
-  const prev = useCallback(() => changeSlide(indexRef.current - 1), [changeSlide]);
+  const next = useCallback(() => changeSlide(index + 1), [changeSlide, index]);
+  const prev = useCallback(() => changeSlide(index - 1), [changeSlide, index]);
 
   useEffect(() => {
     if (previousIndex === null) return;
-    const t = window.setTimeout(() => setPreviousIndex((v) => (v === previousIndex ? null : v)), 1200);
+    const t = window.setTimeout(() => setPreviousIndex((v) => (v === previousIndex ? null : v)), 650);
     return () => window.clearTimeout(t);
   }, [previousIndex]);
 
   useEffect(() => {
-    clearAutoplayTimers();
-    if (!isPlaying) {
-      if (autoplayStartedAtRef.current) {
-        const elapsed = Date.now() - autoplayStartedAtRef.current;
-        remainingMsRef.current = Math.max(0, remainingMsRef.current - elapsed);
-      }
-      autoplayStartedAtRef.current = 0;
-      return;
-    }
-    autoplayStartedAtRef.current = Date.now();
-    const initialProgress = 1 - remainingMsRef.current / AUTO_ADVANCE_MS;
-    setProgress(initialProgress);
-    progressIntervalRef.current = window.setInterval(() => {
-      const elapsed = Date.now() - autoplayStartedAtRef.current;
-      setProgress(Math.min(1, initialProgress + elapsed / AUTO_ADVANCE_MS));
-    }, 50);
-    timeoutRef.current = window.setTimeout(() => changeSlide(indexRef.current + 1), remainingMsRef.current);
-    return clearAutoplayTimers;
-  }, [changeSlide, clearAutoplayTimers, cycleKey, isPlaying]);
+    if (!isPlaying) return;
+    const timer = window.setTimeout(() => changeSlide(index + 1), AUTO_ADVANCE_MS);
+    return () => window.clearTimeout(timer);
+  }, [changeSlide, cycleKey, index, isPlaying]);
 
-  useEffect(() => { return clearAutoplayTimers; }, [clearAutoplayTimers]);
+  useEffect(() => {
+    slides.forEach((item) => {
+      const img = new Image();
+      img.src = item.image;
+    });
+  }, []);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -246,8 +221,12 @@ const Hero = () => {
                   <span className="sr-only">{item.tag}</span>
                   {isActive && (
                     <span
+                      key={`progress-${cycleKey}-${i}`}
                       className="absolute inset-y-0 left-0 origin-left rounded-full bg-white will-change-transform"
-                      style={{ transform: `scaleX(${reduceMotion ? 1 : Math.max(progress, 0.12)})` }}
+                      style={{
+                        animation: reduceMotion ? "none" : `hero-progress ${AUTO_ADVANCE_MS}ms linear forwards`,
+                        transform: reduceMotion ? "scaleX(1)" : "scaleX(0.12)",
+                      }}
                     />
                   )}
                 </button>
@@ -305,6 +284,13 @@ const Hero = () => {
           </div>
         </div>
       </div>
+
+      <style>{`
+        @keyframes hero-progress {
+          from { transform: scaleX(0.12); }
+          to { transform: scaleX(1); }
+        }
+      `}</style>
 
       {/* Decorative bottom curve divider */}
       <div className="absolute inset-x-0 bottom-0 z-[5] pointer-events-none">

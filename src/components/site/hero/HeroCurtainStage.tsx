@@ -20,7 +20,7 @@ const HeroCurtainStage = ({ currentSlide, previousSlide, transitionId, reduceMot
             initial={{ opacity: 1 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: reduceMotion ? 0.25 : 1.1, ease: "easeInOut" }}
+            transition={{ duration: reduceMotion ? 0.2 : 0.55, ease: "easeInOut" }}
             aria-hidden
           >
             <img
@@ -43,15 +43,15 @@ const HeroCurtainStage = ({ currentSlide, previousSlide, transitionId, reduceMot
         className="absolute inset-0"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: reduceMotion ? 0.25 : 1.2, ease: "easeOut" }}
+        transition={{ duration: reduceMotion ? 0.2 : 0.55, ease: "easeOut" }}
       >
         <motion.img
           src={currentSlide.image}
           alt={currentSlide.tag}
           className="absolute inset-0 h-full w-full object-cover will-change-transform"
-          initial={reduceMotion ? {} : { scale: 1.08 }}
+          initial={reduceMotion ? {} : { scale: 1.03 }}
           animate={reduceMotion ? {} : { scale: 1.0 }}
-          transition={{ duration: 7, ease: "linear" }}
+          transition={{ duration: 5.5, ease: "linear" }}
           draggable={false}
           loading="eager"
           decoding="async"
