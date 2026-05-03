@@ -1,307 +1,359 @@
 import { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { ArrowRight, ArrowUpRight, Pause, Play, Phone } from "lucide-react";
+import { ArrowRight, ChevronRight, Pause, Play, Shield, Award, Clock, BedDouble, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { slides } from "@/components/site/hero/data";
+import HeroCurtainStage from "@/components/site/hero/HeroCurtainStage";
+import { slides, stats } from "@/components/site/hero/data";
 
-const AUTO_ADVANCE_MS = 7000;
+const AUTO_ADVANCE_MS = 6500;
+
+const formatSlideNumber = (value: number) => value.toString().padStart(2, "0");
 
 const Hero = () => {
   const reduceMotion = useReducedMotion();
   const [index, setIndex] = useState(0);
   const [cycleKey, setCycleKey] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
+  const [previousIndex, setPreviousIndex] = useState<number | null>(null);
 
-  const goTo = useCallback((next: number) => {
-    setIndex(((next % slides.length) + slides.length) % slides.length);
-    setCycleKey((v) => v + 1);
+  const changeSlide = useCallback((next: number) => {
+    setIndex((current) => {
+      const target = ((next % slides.length) + slides.length) % slides.length;
+      if (target === current) return current;
+      setPreviousIndex(current);
+      setCycleKey((v) => v + 1);
+      return target;
+    });
   }, []);
 
-  const next = useCallback(() => goTo(index + 1), [goTo, index]);
-  const prev = useCallback(() => goTo(index - 1), [goTo, index]);
+  const next = useCallback(() => changeSlide(index + 1), [changeSlide, index]);
+  const prev = useCallback(() => changeSlide(index - 1), [changeSlide, index]);
+
+  useEffect(() => {
+    if (previousIndex === null) return;
+    const t = window.setTimeout(() => setPreviousIndex((v) => (v === previousIndex ? null : v)), 650);
+    return () => window.clearTimeout(t);
+  }, [previousIndex]);
 
   useEffect(() => {
     if (!isPlaying) return;
-    const t = window.setTimeout(() => goTo(index + 1), AUTO_ADVANCE_MS);
-    return () => window.clearTimeout(t);
-  }, [goTo, cycleKey, index, isPlaying]);
+    const timer = window.setTimeout(() => changeSlide(index + 1), AUTO_ADVANCE_MS);
+    return () => window.clearTimeout(timer);
+  }, [changeSlide, cycleKey, index, isPlaying]);
 
   useEffect(() => {
-    slides.forEach((s) => { const i = new Image(); i.src = s.image; });
+    slides.forEach((item) => {
+      const img = new Image();
+      img.src = item.image;
+    });
   }, []);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "ArrowRight") next();
       if (e.key === "ArrowLeft") prev();
+      if (e.key === " ") { e.preventDefault(); setIsPlaying((v) => !v); }
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [next, prev]);
 
   const slide = slides[index];
+  const previousSlide = previousIndex === null ? null : slides[previousIndex];
   const Icon = slide.icon;
-  const words = `${slide.titleStart} ${slide.titleAccent}${slide.titleEnd ?? ""}`.split(" ");
-  const accentStartWord = slide.titleStart.split(" ").length;
-  const accentEndWord = accentStartWord + slide.titleAccent.split(" ").length;
 
   return (
     <section
-      className="relative w-full overflow-hidden bg-background pt-20 sm:pt-24 md:pt-28 pb-10 md:pb-16"
+      className="relative w-full overflow-hidden bg-foreground min-h-[560px] h-[100svh] max-h-[880px] sm:min-h-[620px]"
       aria-roledescription="carousel"
       aria-label="Kamla Hospital highlights"
     >
-      {/* Soft ambient background */}
-      <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top_left,hsl(var(--primary)/0.10),transparent_55%),radial-gradient(ellipse_at_bottom_right,hsl(var(--primary)/0.06),transparent_60%)]" />
-      <div className="absolute inset-0 -z-10 bg-grid-soft opacity-[0.06]" />
+      <HeroCurtainStage
+        currentSlide={slide}
+        previousSlide={previousSlide}
+        transitionId={cycleKey}
+        reduceMotion={Boolean(reduceMotion)}
+      />
 
-      <div className="relative container-tight">
-        {/* Top meta row */}
-        <div className="flex items-center justify-between gap-4 mb-6 md:mb-10">
-          <div className="inline-flex items-center gap-2 text-xs font-semibold tracking-[0.25em] uppercase text-muted-foreground">
-            <span className="h-px w-8 bg-primary/60" />
-            Kamla Hospital · Jhansi
-          </div>
-          <div className="hidden sm:flex items-center gap-2 text-xs font-mono text-muted-foreground">
-            <span className="font-bold text-foreground">{String(index + 1).padStart(2, "0")}</span>
-            <span className="opacity-50">/ {String(slides.length).padStart(2, "0")}</span>
+      {/* Softer overlays — text-side darker, image-side clearer */}
+      <div className="absolute inset-0 bg-gradient-to-r from-foreground/70 via-foreground/25 to-transparent pointer-events-none" />
+      <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-foreground/55 via-foreground/10 to-transparent pointer-events-none" />
+      {/* Light brand wash */}
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/15 via-transparent to-transparent mix-blend-multiply pointer-events-none" />
+      {/* Subtle grid texture */}
+      <div className="absolute inset-0 bg-grid-soft opacity-15 pointer-events-none" />
+      {/* Vignette top */}
+      <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-foreground/35 to-transparent pointer-events-none" />
+      {/* Animated accent blobs — subtle */}
+      <div className="absolute -bottom-40 -right-40 h-[700px] w-[700px] rounded-full bg-primary/10 blur-[100px] pointer-events-none animate-blob" />
+      <div className="absolute top-1/4 -left-32 h-[500px] w-[500px] rounded-full bg-primary-glow/10 blur-[120px] pointer-events-none animate-blob" style={{ animationDelay: "6s" }} />
+      <div className="absolute top-10 right-1/3 h-[280px] w-[280px] rounded-full bg-yellow-400/8 blur-[80px] pointer-events-none" />
+
+      <div className="relative z-10 h-full container-tight flex flex-col">
+
+        {/* Top bar */}
+        <div className="pt-20 sm:pt-24 md:pt-28 flex items-center justify-between gap-4">
+          <AnimatePresence mode="wait" initial={false}>
+            <motion.div
+              key={`tag-${slide.id}`}
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 10 }}
+              transition={{ duration: 0.4, ease: "easeOut" }}
+              className="inline-flex items-center gap-2 rounded-full bg-primary/90 backdrop-blur-sm px-3.5 py-1.5 text-xs font-bold uppercase tracking-widest text-primary-foreground shadow-lg"
+            >
+              <span className="h-1.5 w-1.5 rounded-full bg-primary-foreground animate-pulse" />
+              {slide.tag}
+            </motion.div>
+          </AnimatePresence>
+
+          {/* Ayushman pill — top right */}
+          <motion.a
+            href="https://beneficiary.nha.gov.in/"
+            target="_blank"
+            rel="noopener noreferrer"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.6 }}
+            className="hidden md:inline-flex items-center gap-2 rounded-full bg-[#1a6b3a]/80 backdrop-blur-sm border border-green-400/30 px-3.5 py-1.5 text-xs font-bold text-white shadow-lg hover:bg-[#1a6b3a] transition-colors"
+          >
+            <Shield className="h-3.5 w-3.5 text-yellow-300" />
+            Ayushman Bharat Accepted
+          </motion.a>
+        </div>
+
+        {/* Main content */}
+        <div className="flex-1 flex items-center py-5 sm:py-8">
+          <div className="w-full max-w-3xl text-primary-foreground">
+            <div className="relative min-h-[355px] min-[380px]:min-h-[340px] sm:min-h-[330px] md:min-h-[340px]">
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.div
+                  key={`content-${slide.id}`}
+                  className="absolute inset-0"
+                  initial={{ opacity: 0, y: 28 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -16 }}
+                  transition={{ duration: 0.6, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+                >
+                  {/* Eyebrow */}
+                  <div className="mb-4 inline-flex items-center gap-2 text-primary-foreground/80">
+                    <Icon className="h-4 w-4" />
+                    <span className="text-sm font-semibold tracking-wide uppercase">{slide.eyebrow}</span>
+                  </div>
+
+                  {/* Headline */}
+                  <h1
+                    className="mb-4 sm:mb-5 font-display text-[2.15rem] font-extrabold leading-[1.05] tracking-tight min-[380px]:text-4xl sm:text-5xl lg:text-6xl xl:text-7xl"
+                    style={{ textShadow: "0 4px 32px hsl(0 0% 0% / 0.6)" }}
+                  >
+                    {slide.titleStart}{" "}
+                    <em className="not-italic bg-gradient-to-r from-yellow-300 via-yellow-200 to-amber-300 bg-clip-text text-transparent drop-shadow-[0_2px_12px_rgba(250,204,21,0.4)]">{slide.titleAccent}</em>
+                    {slide.titleEnd}
+                  </h1>
+
+                  {/* Description */}
+                  <p
+                    className="mb-5 sm:mb-8 max-w-xl text-sm leading-relaxed text-primary-foreground/90 min-[380px]:text-base md:text-lg"
+                    style={{ textShadow: "0 1px 8px hsl(0 0% 0% / 0.4)" }}
+                  >
+                    {slide.description}
+                  </p>
+
+                  {/* CTAs */}
+                  <div className="flex flex-col gap-2.5 min-[420px]:flex-row min-[420px]:flex-wrap sm:gap-3">
+                    <Button
+                      asChild
+                      size="xl"
+                      className="w-full min-[420px]:w-auto justify-center bg-primary text-primary-foreground shadow-strong hover:bg-primary/90 group"
+                    >
+                      {slide.ctaPrimary.to.startsWith("tel:") ? (
+                        <a href={slide.ctaPrimary.to}>
+                          {slide.ctaPrimary.label}
+                          <ArrowRight className="h-4 w-4 group-hover:translate-x-0.5 transition-transform" />
+                        </a>
+                      ) : (
+                        <Link to={slide.ctaPrimary.to}>
+                          {slide.ctaPrimary.label}
+                          <ArrowRight className="h-4 w-4 group-hover:translate-x-0.5 transition-transform" />
+                        </Link>
+                      )}
+                    </Button>
+
+                    <Button
+                      asChild
+                      size="xl"
+                      variant="outline"
+                      className="w-full min-[420px]:w-auto justify-center border-white/30 bg-white/10 backdrop-blur-sm text-primary-foreground hover:bg-white/20 hover:border-white/50 hover:text-primary-foreground"
+                    >
+                      <Link to={slide.ctaSecondary.to}>
+                        {slide.ctaSecondary.label}
+                        <ChevronRight className="h-4 w-4" />
+                      </Link>
+                    </Button>
+                  </div>
+
+                  {/* Trust micro-strip */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.55, duration: 0.5 }}
+                    className="mt-5 sm:mt-7 flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-white/85"
+                  >
+                    {[
+                      { Icon: ShieldCheck, label: "NABH-aligned care" },
+                      { Icon: Award, label: "40+ Years of trust" },
+                      { Icon: BedDouble, label: "120 Beds · ICU/NICU/ICCU" },
+                      { Icon: Clock, label: "OPD 10AM–7PM" },
+                    ].map(({ Icon, label }) => (
+                      <span key={label} className="inline-flex items-center gap-1.5">
+                        <Icon className="h-3.5 w-3.5 text-yellow-300" />
+                        <span className="font-medium tracking-wide">{label}</span>
+                      </span>
+                    ))}
+                  </motion.div>
+                </motion.div>
+              </AnimatePresence>
+            </div>
           </div>
         </div>
 
-        <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-          {/* LEFT — content */}
-          <div className="lg:col-span-7 relative">
-            <AnimatePresence mode="wait" initial={false}>
-              <motion.div
-                key={`eyebrow-${slide.id}`}
-                initial={{ opacity: 0, x: -12 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.4 }}
-                className="inline-flex items-center gap-2 mb-5 text-primary"
-              >
-                <Icon className="h-4 w-4" />
-                <span className="text-[11px] font-bold tracking-[0.2em] uppercase">{slide.eyebrow}</span>
-              </motion.div>
-            </AnimatePresence>
+        {/* Bottom controls */}
+        <div className="pb-12 sm:pb-16 md:pb-24">
+          {/* Progress bars */}
+          <div className="mb-4 sm:mb-5 flex items-center gap-1.5" role="tablist" aria-label="Hero carousel slides">
+            {slides.map((item, i) => {
+              const isActive = i === index;
 
-            {/* Word-stagger headline */}
-            <h1 className="font-display font-extrabold tracking-tight text-foreground text-[2.4rem] leading-[1.02] sm:text-5xl md:text-6xl lg:text-[4.4rem]">
-              <AnimatePresence mode="wait" initial={false}>
-                <motion.span key={`headline-${slide.id}`} className="block">
-                  {words.map((w, i) => {
-                    const isAccent = i >= accentStartWord && i < accentEndWord;
-                    return (
-                      <motion.span
-                        key={`${slide.id}-${i}`}
-                        initial={{ opacity: 0, y: "100%" }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: "-40%" }}
-                        transition={{
-                          duration: reduceMotion ? 0.2 : 0.65,
-                          delay: reduceMotion ? 0 : i * 0.06,
-                          ease: [0.22, 1, 0.36, 1],
-                        }}
-                        className="inline-block overflow-hidden align-baseline mr-[0.25em]"
-                      >
-                        <span className={isAccent ? "italic text-primary" : ""}>{w}</span>
-                      </motion.span>
-                    );
-                  })}
-                </motion.span>
-              </AnimatePresence>
-            </h1>
-
-            <AnimatePresence mode="wait" initial={false}>
-              <motion.p
-                key={`desc-${slide.id}`}
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.5, delay: 0.25 }}
-                className="mt-6 max-w-xl text-base md:text-lg text-muted-foreground leading-relaxed"
-              >
-                {slide.description}
-              </motion.p>
-            </AnimatePresence>
-
-            {/* CTAs */}
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4, duration: 0.5 }}
-              className="mt-8 flex flex-col sm:flex-row gap-3"
-            >
-              <Button asChild size="xl" className="group">
-                {slide.ctaPrimary.to.startsWith("tel:") ? (
-                  <a href={slide.ctaPrimary.to}>
-                    {slide.ctaPrimary.label}
-                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                  </a>
-                ) : (
-                  <Link to={slide.ctaPrimary.to}>
-                    {slide.ctaPrimary.label}
-                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                  </Link>
-                )}
-              </Button>
-              <Button asChild size="xl" variant="ghost" className="group text-foreground hover:bg-foreground/5">
-                <Link to={slide.ctaSecondary.to}>
-                  {slide.ctaSecondary.label}
-                  <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                </Link>
-              </Button>
-            </motion.div>
-
-            {/* Slim controls */}
-            <div className="mt-10 flex items-center gap-5">
-              <div className="flex items-center gap-2">
+              return (
                 <button
+                  key={item.id}
                   type="button"
-                  onClick={prev}
-                  aria-label="Previous slide"
-                  className="h-10 w-10 rounded-full border border-border flex items-center justify-center text-foreground hover:bg-foreground hover:text-background transition-colors"
+                  onClick={() => changeSlide(i)}
+                  aria-label={`Go to slide ${i + 1}: ${item.tag}`}
+                  aria-current={isActive ? "true" : undefined}
+                  role="tab"
+                  aria-selected={isActive}
+                  className={`group relative h-1 cursor-pointer overflow-hidden rounded-full transition-all duration-300 ${
+                    isActive ? "flex-[1.8] bg-white/55 shadow-[0_0_14px_rgba(255,255,255,0.35)]" : "flex-1 bg-white/20 hover:bg-white/35"
+                  }`}
                 >
-                  <ArrowRight className="h-3.5 w-3.5 rotate-180" />
+                  <span className="sr-only">{item.tag}</span>
+                  {isActive && (
+                    <span
+                      key={`progress-${cycleKey}-${i}`}
+                      className="absolute inset-y-0 left-0 origin-left rounded-full bg-white will-change-transform"
+                      style={{
+                        animation: reduceMotion ? "none" : `hero-progress ${AUTO_ADVANCE_MS}ms linear forwards`,
+                        transform: reduceMotion ? "scaleX(1)" : "scaleX(0.12)",
+                      }}
+                    />
+                  )}
                 </button>
-                <button
-                  type="button"
-                  onClick={() => setIsPlaying((v) => !v)}
-                  aria-label={isPlaying ? "Pause" : "Play"}
-                  className="h-10 w-10 rounded-full border border-border flex items-center justify-center text-foreground hover:bg-foreground hover:text-background transition-colors"
-                >
-                  {isPlaying ? <Pause className="h-3.5 w-3.5" /> : <Play className="h-3.5 w-3.5" />}
-                </button>
-                <button
-                  type="button"
-                  onClick={next}
-                  aria-label="Next slide"
-                  className="h-10 w-10 rounded-full border border-border flex items-center justify-center text-foreground hover:bg-foreground hover:text-background transition-colors"
-                >
-                  <ArrowRight className="h-3.5 w-3.5" />
-                </button>
-              </div>
-
-              {/* Slide pagination strip */}
-              <div className="flex-1 flex items-center gap-2" role="tablist">
-                {slides.map((s, i) => {
-                  const active = i === index;
-                  return (
-                    <button
-                      key={s.id}
-                      type="button"
-                      onClick={() => goTo(i)}
-                      aria-label={`Go to ${s.tag}`}
-                      role="tab"
-                      aria-selected={active}
-                      className={`relative h-[3px] overflow-hidden rounded-full transition-all duration-500 ${
-                        active ? "flex-[2] bg-foreground/15" : "flex-1 bg-foreground/10 hover:bg-foreground/20"
-                      }`}
-                    >
-                      {active && (
-                        <span
-                          key={`bar-${cycleKey}`}
-                          className="absolute inset-y-0 left-0 origin-left bg-primary"
-                          style={{
-                            width: "100%",
-                            animation: reduceMotion ? "none" : `hero-bar ${AUTO_ADVANCE_MS}ms linear forwards`,
-                          }}
-                        />
-                      )}
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
+              );
+            })}
           </div>
 
-          {/* RIGHT — image stage */}
-          <div className="lg:col-span-5 relative">
-            <div className="relative aspect-[4/5] sm:aspect-[5/6] lg:aspect-[4/5] w-full max-w-[520px] mx-auto">
-              {/* Decorative offset border */}
-              <div className="absolute -inset-3 md:-inset-4 rounded-[2rem] border border-primary/30 translate-x-3 translate-y-3 md:translate-x-4 md:translate-y-4" />
-
-              {/* Image with mask reveal */}
-              <div className="absolute inset-0 rounded-[2rem] overflow-hidden bg-foreground/5 shadow-[0_30px_80px_-20px_hsl(var(--primary)/0.35)]">
-                <AnimatePresence initial={false}>
-                  <motion.img
-                    key={`img-${slide.id}`}
-                    src={slide.image}
-                    alt={slide.tag}
-                    className="absolute inset-0 h-full w-full object-cover"
-                    initial={{
-                      clipPath: reduceMotion ? "inset(0% 0% 0% 0%)" : "inset(0% 0% 100% 0%)",
-                      scale: reduceMotion ? 1 : 1.1,
-                    }}
-                    animate={{ clipPath: "inset(0% 0% 0% 0%)", scale: 1 }}
-                    exit={{ clipPath: reduceMotion ? "inset(0% 0% 0% 0%)" : "inset(100% 0% 0% 0%)" }}
-                    transition={{ duration: reduceMotion ? 0.2 : 1.0, ease: [0.76, 0, 0.24, 1] }}
-                    draggable={false}
-                    loading="eager"
-                    decoding="async"
-                    fetchPriority="high"
-                  />
-                </AnimatePresence>
-                <div className="absolute inset-0 bg-gradient-to-t from-foreground/40 via-transparent to-transparent" />
-
-                {/* Tag badge */}
-                <AnimatePresence mode="wait" initial={false}>
-                  <motion.div
-                    key={`tag-${slide.id}`}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ delay: 0.5, duration: 0.4 }}
-                    className="absolute left-4 top-4 inline-flex items-center gap-2 rounded-full bg-background/90 backdrop-blur px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.2em] text-foreground shadow-md"
-                  >
-                    <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
-                    {slide.tag}
-                  </motion.div>
-                </AnimatePresence>
-              </div>
-
-              {/* Floating emergency card */}
-              <motion.a
-                href="tel:8303792140"
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.7, duration: 0.5 }}
-                className="absolute -bottom-5 -left-3 sm:-left-6 md:-left-10 bg-background border border-border rounded-2xl shadow-xl p-3 pr-4 flex items-center gap-3 hover:shadow-2xl hover:-translate-y-0.5 transition-all"
+          <div className="flex flex-wrap items-center justify-between gap-4">
+            {/* Nav controls */}
+            <div className="flex items-center gap-2 text-primary-foreground">
+              <button
+                type="button"
+                onClick={prev}
+                aria-label="Previous slide"
+                className="flex h-9 w-9 items-center justify-center rounded-full border border-white/25 bg-white/8 backdrop-blur-sm transition-all hover:bg-white/20 hover:border-white/50"
               >
-                <span className="h-10 w-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center">
-                  <Phone className="h-5 w-5" />
-                </span>
-                <span className="leading-tight">
-                  <span className="block text-[10px] uppercase tracking-widest text-muted-foreground">24×7 Emergency</span>
-                  <span className="block text-sm font-bold text-foreground">8303 792 140</span>
-                </span>
-              </motion.a>
-
-              {/* Floating credentials chip */}
-              <motion.div
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.85, duration: 0.5 }}
-                className="absolute -top-4 -right-2 sm:-right-4 bg-foreground text-background rounded-2xl px-4 py-3 shadow-xl"
+                <ArrowRight className="h-3.5 w-3.5 rotate-180" />
+              </button>
+              <button
+                type="button"
+                onClick={() => setIsPlaying((v) => !v)}
+                aria-label={isPlaying ? "Pause" : "Play"}
+                className="flex h-9 w-9 items-center justify-center rounded-full border border-white/25 bg-white/8 backdrop-blur-sm transition-all hover:bg-white/20 hover:border-white/50"
               >
-                <div className="text-[10px] uppercase tracking-widest opacity-70">Trusted Care</div>
-                <div className="text-lg font-display font-extrabold leading-none mt-1">40+ Years</div>
-              </motion.div>
+                {isPlaying ? <Pause className="h-3.5 w-3.5" /> : <Play className="h-3.5 w-3.5" />}
+              </button>
+              <button
+                type="button"
+                onClick={next}
+                aria-label="Next slide"
+                className="flex h-9 w-9 items-center justify-center rounded-full border border-white/25 bg-white/8 backdrop-blur-sm transition-all hover:bg-white/20 hover:border-white/50"
+              >
+                <ArrowRight className="h-3.5 w-3.5" />
+              </button>
+              <p className="ml-2 font-mono text-xs text-white/60">
+                <span className="font-bold text-white">{formatSlideNumber(index + 1)}</span>
+                <span> / {formatSlideNumber(slides.length)}</span>
+              </p>
+            </div>
+
+            {/* Stats — desktop */}
+            <div className="hidden lg:flex items-center gap-6 text-primary-foreground">
+              {stats.map((item) => (
+                <div key={item.label} className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-lg bg-white/10 backdrop-blur-sm flex items-center justify-center">
+                    <item.icon className="h-4 w-4 text-primary-glow" />
+                  </div>
+                  <div className="leading-tight">
+                    <p className="font-display text-base font-extrabold">{item.value}</p>
+                    <p className="text-[10px] uppercase tracking-widest opacity-60">{item.label}</p>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
       </div>
 
       <style>{`
-        @keyframes hero-bar {
-          from { transform: scaleX(0); }
+        @keyframes hero-progress {
+          from { transform: scaleX(0.12); }
           to { transform: scaleX(1); }
         }
-        [role="tab"] > span {
-          transform-origin: left;
+        @keyframes hero-pulse-line {
+          from { stroke-dashoffset: 1200; }
+          to { stroke-dashoffset: 0; }
+        }
+        @keyframes hero-scroll-cue {
+          0%, 100% { transform: translateY(0); opacity: 0.65; }
+          50% { transform: translateY(6px); opacity: 1; }
         }
       `}</style>
+
+      {/* Animated heartbeat line */}
+      <div className="absolute inset-x-0 bottom-10 md:bottom-14 z-[6] pointer-events-none opacity-60">
+        <svg viewBox="0 0 1200 40" preserveAspectRatio="none" className="w-full h-6 md:h-8">
+          <path
+            d="M0 20 L260 20 L280 8 L300 32 L320 4 L340 36 L360 20 L600 20 L620 10 L640 30 L660 6 L680 34 L700 20 L1200 20"
+            fill="none"
+            stroke="hsl(42 92% 60%)"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeDasharray="1200"
+            strokeDashoffset="1200"
+            style={{ animation: "hero-pulse-line 3.2s ease-out 0.4s forwards" }}
+          />
+        </svg>
+      </div>
+
+      {/* Scroll cue */}
+      <div className="absolute left-1/2 -translate-x-1/2 bottom-3 z-[7] pointer-events-none hidden sm:flex flex-col items-center gap-1 text-white/70">
+        <span className="text-[10px] uppercase tracking-[0.3em]">Scroll</span>
+        <div
+          className="h-7 w-[18px] rounded-full border border-white/40 flex items-start justify-center pt-1.5"
+          style={{ animation: "hero-scroll-cue 1.8s ease-in-out infinite" }}
+        >
+          <span className="block h-1.5 w-0.5 rounded-full bg-white/80" />
+        </div>
+      </div>
+
+      {/* Decorative bottom curve divider */}
+      <div className="absolute inset-x-0 bottom-0 z-[5] pointer-events-none">
+        <svg viewBox="0 0 1440 80" preserveAspectRatio="none" className="w-full h-10 md:h-14 fill-background">
+          <path d="M0,80 C240,20 480,0 720,20 C960,40 1200,70 1440,30 L1440,80 Z" />
+        </svg>
+      </div>
     </section>
   );
 };
