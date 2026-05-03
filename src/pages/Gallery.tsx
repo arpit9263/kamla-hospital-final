@@ -4,6 +4,7 @@ import PageHeader from "@/components/site/PageHeader";
 import { Button } from "@/components/ui/button";
 import { X, ChevronLeft, ChevronRight, ZoomIn } from "lucide-react";
 import { galleryItems, hospitalInfo } from "@/data/hospital";
+import virtualTourVideo from "@/assets/videos/virtualtour.mp4";
 
 const cats = ["All", "Hospital", "Doctors", "Facilities", "Events"] as const;
 
@@ -42,18 +43,7 @@ const Gallery = () => {
                   poster={hospitalInfo.images.exteriorWide}
                   className="w-full h-full object-cover"
                 >
-                  <source
-                    src="https://videos.pexels.com/video-files/4079098/4079098-uhd_2560_1440_25fps.mp4"
-                    type="video/mp4"
-                  />
-                  <source
-                    src="https://videos.pexels.com/video-files/4769449/4769449-uhd_2560_1440_25fps.mp4"
-                    type="video/mp4"
-                  />
-                  <source
-                    src="https://cdn.pixabay.com/video/2020/09/08/49375-458855661_large.mp4"
-                    type="video/mp4"
-                  />
+                  <source src={virtualTourVideo} type="video/mp4" />
                 </video>
                 <img
                   src={hospitalInfo.images.exteriorWide}
