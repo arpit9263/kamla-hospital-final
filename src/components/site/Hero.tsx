@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { ArrowRight, ChevronRight, Pause, Play, Shield } from "lucide-react";
+import { ArrowRight, ChevronRight, Pause, Play, Shield, Award, Clock, BedDouble, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import HeroCurtainStage from "@/components/site/hero/HeroCurtainStage";
 import { slides, stats } from "@/components/site/hero/data";
@@ -192,6 +192,26 @@ const Hero = () => {
                       </Link>
                     </Button>
                   </div>
+
+                  {/* Trust micro-strip */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.55, duration: 0.5 }}
+                    className="mt-5 sm:mt-7 flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-white/85"
+                  >
+                    {[
+                      { Icon: ShieldCheck, label: "NABH-aligned care" },
+                      { Icon: Award, label: "40+ Years of trust" },
+                      { Icon: BedDouble, label: "120 Beds · ICU/NICU/ICCU" },
+                      { Icon: Clock, label: "OPD 10AM–7PM" },
+                    ].map(({ Icon, label }) => (
+                      <span key={label} className="inline-flex items-center gap-1.5">
+                        <Icon className="h-3.5 w-3.5 text-yellow-300" />
+                        <span className="font-medium tracking-wide">{label}</span>
+                      </span>
+                    ))}
+                  </motion.div>
                 </motion.div>
               </AnimatePresence>
             </div>
@@ -290,7 +310,43 @@ const Hero = () => {
           from { transform: scaleX(0.12); }
           to { transform: scaleX(1); }
         }
+        @keyframes hero-pulse-line {
+          from { stroke-dashoffset: 1200; }
+          to { stroke-dashoffset: 0; }
+        }
+        @keyframes hero-scroll-cue {
+          0%, 100% { transform: translateY(0); opacity: 0.65; }
+          50% { transform: translateY(6px); opacity: 1; }
+        }
       `}</style>
+
+      {/* Animated heartbeat line */}
+      <div className="absolute inset-x-0 bottom-10 md:bottom-14 z-[6] pointer-events-none opacity-60">
+        <svg viewBox="0 0 1200 40" preserveAspectRatio="none" className="w-full h-6 md:h-8">
+          <path
+            d="M0 20 L260 20 L280 8 L300 32 L320 4 L340 36 L360 20 L600 20 L620 10 L640 30 L660 6 L680 34 L700 20 L1200 20"
+            fill="none"
+            stroke="hsl(42 92% 60%)"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeDasharray="1200"
+            strokeDashoffset="1200"
+            style={{ animation: "hero-pulse-line 3.2s ease-out 0.4s forwards" }}
+          />
+        </svg>
+      </div>
+
+      {/* Scroll cue */}
+      <div className="absolute left-1/2 -translate-x-1/2 bottom-3 z-[7] pointer-events-none hidden sm:flex flex-col items-center gap-1 text-white/70">
+        <span className="text-[10px] uppercase tracking-[0.3em]">Scroll</span>
+        <div
+          className="h-7 w-[18px] rounded-full border border-white/40 flex items-start justify-center pt-1.5"
+          style={{ animation: "hero-scroll-cue 1.8s ease-in-out infinite" }}
+        >
+          <span className="block h-1.5 w-0.5 rounded-full bg-white/80" />
+        </div>
+      </div>
 
       {/* Decorative bottom curve divider */}
       <div className="absolute inset-x-0 bottom-0 z-[5] pointer-events-none">
