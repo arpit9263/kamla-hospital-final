@@ -199,90 +199,133 @@ const Hero = () => {
           </div>
         </div>
 
-        {/* Bottom controls */}
-        <div className="pb-12 sm:pb-16 md:pb-24">
-          {/* Progress bars */}
-          <div className="mb-4 sm:mb-5 flex items-center gap-1.5" role="tablist" aria-label="Hero carousel slides">
-            {slides.map((item, i) => {
-              const isActive = i === index;
+        {/* Premium command rail — single floating panel housing nav + progress + stats */}
+        <div className="pb-10 sm:pb-14 md:pb-20">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            className="relative overflow-hidden rounded-2xl border border-white/12 bg-foreground/45 backdrop-blur-2xl shadow-[0_24px_60px_-20px_rgba(0,0,0,0.6)]"
+          >
+            {/* Gold accent inlay top */}
+            <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-yellow-300/60 to-transparent" />
 
-              return (
-                <button
-                  key={item.id}
-                  type="button"
-                  onClick={() => changeSlide(i)}
-                  aria-label={`Go to slide ${i + 1}: ${item.tag}`}
-                  aria-current={isActive ? "true" : undefined}
-                  role="tab"
-                  aria-selected={isActive}
-                  className={`group relative h-1 cursor-pointer overflow-hidden rounded-full transition-all duration-300 ${
-                    isActive ? "flex-[1.8] bg-white/55 shadow-[0_0_14px_rgba(255,255,255,0.35)]" : "flex-1 bg-white/20 hover:bg-white/35"
-                  }`}
-                >
-                  <span className="sr-only">{item.tag}</span>
-                  {isActive && (
-                    <span
-                      key={`progress-${cycleKey}-${i}`}
-                      className="absolute inset-y-0 left-0 origin-left rounded-full bg-white will-change-transform"
-                      style={{
-                        animation: reduceMotion ? "none" : `hero-progress ${AUTO_ADVANCE_MS}ms linear forwards`,
-                        transform: reduceMotion ? "scaleX(1)" : "scaleX(0.12)",
-                      }}
-                    />
-                  )}
-                </button>
-              );
-            })}
-          </div>
+            <div className="grid grid-cols-1 lg:grid-cols-[auto_1fr_auto] items-stretch divide-y lg:divide-y-0 lg:divide-x divide-white/10">
 
-          <div className="flex flex-wrap items-center justify-between gap-4">
-            {/* Nav controls */}
-            <div className="flex items-center gap-2 text-primary-foreground">
-              <button
-                type="button"
-                onClick={prev}
-                aria-label="Previous slide"
-                className="flex h-9 w-9 items-center justify-center rounded-full border border-white/25 bg-white/8 backdrop-blur-sm transition-all hover:bg-white/20 hover:border-white/50"
-              >
-                <ArrowRight className="h-3.5 w-3.5 rotate-180" />
-              </button>
-              <button
-                type="button"
-                onClick={() => setIsPlaying((v) => !v)}
-                aria-label={isPlaying ? "Pause" : "Play"}
-                className="flex h-9 w-9 items-center justify-center rounded-full border border-white/25 bg-white/8 backdrop-blur-sm transition-all hover:bg-white/20 hover:border-white/50"
-              >
-                {isPlaying ? <Pause className="h-3.5 w-3.5" /> : <Play className="h-3.5 w-3.5" />}
-              </button>
-              <button
-                type="button"
-                onClick={next}
-                aria-label="Next slide"
-                className="flex h-9 w-9 items-center justify-center rounded-full border border-white/25 bg-white/8 backdrop-blur-sm transition-all hover:bg-white/20 hover:border-white/50"
-              >
-                <ArrowRight className="h-3.5 w-3.5" />
-              </button>
-              <p className="ml-2 font-mono text-xs text-white/60">
-                <span className="font-bold text-white">{formatSlideNumber(index + 1)}</span>
-                <span> / {formatSlideNumber(slides.length)}</span>
-              </p>
-            </div>
-
-            {/* Stats — desktop */}
-            <div className="hidden lg:flex items-center gap-6 text-primary-foreground">
-              {stats.map((item) => (
-                <div key={item.label} className="flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-lg bg-white/10 backdrop-blur-sm flex items-center justify-center">
-                    <item.icon className="h-4 w-4 text-primary-glow" />
-                  </div>
-                  <div className="leading-tight">
-                    <p className="font-display text-base font-extrabold">{item.value}</p>
-                    <p className="text-[10px] uppercase tracking-widest opacity-60">{item.label}</p>
-                  </div>
+              {/* ── Zone 1: Carousel controls ── */}
+              <div className="px-5 py-4 sm:px-6 sm:py-5 flex items-center gap-3 lg:gap-4">
+                <div className="flex items-center gap-1.5">
+                  <button
+                    type="button"
+                    onClick={prev}
+                    aria-label="Previous slide"
+                    className="flex h-9 w-9 items-center justify-center rounded-full border border-white/20 bg-white/5 text-white transition-all hover:bg-white/15 hover:border-white/40"
+                  >
+                    <ArrowRight className="h-3.5 w-3.5 rotate-180" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setIsPlaying((v) => !v)}
+                    aria-label={isPlaying ? "Pause" : "Play"}
+                    className="flex h-9 w-9 items-center justify-center rounded-full border border-yellow-300/40 bg-yellow-300/10 text-yellow-200 transition-all hover:bg-yellow-300/20"
+                  >
+                    {isPlaying ? <Pause className="h-3.5 w-3.5" /> : <Play className="h-3.5 w-3.5" />}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={next}
+                    aria-label="Next slide"
+                    className="flex h-9 w-9 items-center justify-center rounded-full border border-white/20 bg-white/5 text-white transition-all hover:bg-white/15 hover:border-white/40"
+                  >
+                    <ArrowRight className="h-3.5 w-3.5" />
+                  </button>
                 </div>
-              ))}
+                <div className="pl-2 lg:pl-3 border-l border-white/10 leading-none">
+                  <p className="font-display text-xl font-extrabold text-white tabular-nums tracking-tight">
+                    {formatSlideNumber(index + 1)}
+                    <span className="text-white/35 text-sm font-normal mx-1">/</span>
+                    <span className="text-white/50 text-sm font-medium">{formatSlideNumber(slides.length)}</span>
+                  </p>
+                  <p className="mt-1 text-[9px] uppercase tracking-[0.25em] text-yellow-200/70 font-semibold">{slide.tag}</p>
+                </div>
+              </div>
+
+              {/* ── Zone 2: Progress + trust labels ── */}
+              <div className="px-5 py-4 sm:px-6 sm:py-5 flex flex-col justify-center gap-3 min-w-0">
+                <div className="flex items-center gap-1.5" role="tablist" aria-label="Hero carousel slides">
+                  {slides.map((item, i) => {
+                    const isActive = i === index;
+                    return (
+                      <button
+                        key={item.id}
+                        type="button"
+                        onClick={() => changeSlide(i)}
+                        aria-label={`Go to slide ${i + 1}: ${item.tag}`}
+                        aria-current={isActive ? "true" : undefined}
+                        role="tab"
+                        aria-selected={isActive}
+                        className={`group relative h-1 cursor-pointer overflow-hidden rounded-full transition-all duration-300 ${
+                          isActive ? "flex-[1.8] bg-white/30" : "flex-1 bg-white/15 hover:bg-white/25"
+                        }`}
+                      >
+                        <span className="sr-only">{item.tag}</span>
+                        {isActive && (
+                          <span
+                            key={`progress-${cycleKey}-${i}`}
+                            className="absolute inset-y-0 left-0 origin-left rounded-full bg-gradient-to-r from-yellow-300 to-amber-200 will-change-transform shadow-[0_0_10px_rgba(253,224,71,0.5)]"
+                            style={{
+                              animation: reduceMotion ? "none" : `hero-progress ${AUTO_ADVANCE_MS}ms linear forwards`,
+                              transform: reduceMotion ? "scaleX(1)" : "scaleX(0.04)",
+                            }}
+                          />
+                        )}
+                      </button>
+                    );
+                  })}
+                </div>
+
+                <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.15em] text-white/65">
+                  {[
+                    { Icon: ShieldCheck, label: "NABH Aligned" },
+                    { Icon: Award, label: "40+ Years" },
+                    { Icon: BedDouble, label: "120 Beds" },
+                    { Icon: Clock, label: "OPD 10–7" },
+                  ].map(({ Icon, label }) => (
+                    <span key={label} className="inline-flex items-center gap-1.5">
+                      <Icon className="h-3 w-3 text-yellow-300/90" />
+                      <span>{label}</span>
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* ── Zone 3: Stats ── */}
+              <div className="hidden lg:grid grid-cols-4 divide-x divide-white/10">
+                {stats.map((item) => (
+                  <div key={item.label} className="px-5 py-5 flex flex-col justify-center min-w-[110px] group">
+                    <div className="flex items-center gap-2 mb-1.5">
+                      <item.icon className="h-3 w-3 text-yellow-300/80" />
+                      <span className="text-[9px] uppercase tracking-[0.2em] text-white/50 font-bold">{item.label}</span>
+                    </div>
+                    <p className="font-display text-2xl font-extrabold text-white tabular-nums leading-none tracking-tight group-hover:text-yellow-200 transition-colors">
+                      {item.value}
+                    </p>
+                  </div>
+                ))}
+              </div>
+
+              {/* Mobile/tablet stats */}
+              <div className="lg:hidden grid grid-cols-4 divide-x divide-white/10">
+                {stats.map((item) => (
+                  <div key={item.label} className="px-3 py-3 flex flex-col items-center text-center">
+                    <p className="font-display text-sm font-extrabold text-white tabular-nums leading-tight">{item.value}</p>
+                    <p className="mt-0.5 text-[8px] uppercase tracking-[0.15em] text-white/50 font-semibold leading-tight">{item.label}</p>
+                  </div>
+                ))}
+              </div>
+
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
 
