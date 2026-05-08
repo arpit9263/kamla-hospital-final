@@ -14,6 +14,8 @@ import Services from "./pages/Services.tsx";
 import Appointment from "./pages/Appointment.tsx";
 import Contact from "./pages/Contact.tsx";
 import NotFound from "./pages/NotFound.tsx";
+import SeoManager from "@/components/site/SeoManager";
+import CloudflareAnalytics from "@/components/site/CloudflareAnalytics";
 
 const queryClient = new QueryClient();
 
@@ -23,6 +25,8 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        <SeoManager />
+        <CloudflareAnalytics />
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/about" element={<About />} />

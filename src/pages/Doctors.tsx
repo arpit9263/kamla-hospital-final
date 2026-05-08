@@ -24,8 +24,8 @@ const Doctors = () => {
     <Layout>
       <PageHeader
         eyebrow="Our Doctors"
-        title="Meet our specialists"
-        subtitle="Experienced, qualified and compassionate — our doctors are committed to your wellbeing."
+        title="Meet Kamla Hospital specialists"
+        subtitle="Consult experienced doctors and specialists in Jhansi for ENT, Gastro & Liver, Orthopedic, Cardiology, Ophthalmology, Gynecology, General Surgery and emergency care."
       >
         <div className="relative max-w-md mx-auto mt-8">
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-white/50" />
@@ -43,6 +43,8 @@ const Doctors = () => {
           {/* Department filters */}
           <div className="flex gap-2 mb-10 overflow-x-auto pb-2 sm:flex-wrap sm:justify-center scrollbar-hide">
             <button
+              type="button"
+              aria-label="Show all doctors"
               onClick={() => setDept("all")}
               className={`shrink-0 px-4 py-2 rounded-full text-sm font-semibold transition-all duration-200 ${
                 dept === "all"
@@ -55,6 +57,8 @@ const Doctors = () => {
             {departments.map((d) => (
               <button
                 key={d.id}
+                type="button"
+                aria-label={`Show ${d.name} doctors`}
                 onClick={() => setDept(d.id)}
                 className={`shrink-0 px-4 py-2 rounded-full text-sm font-semibold transition-all duration-200 ${
                   dept === d.id

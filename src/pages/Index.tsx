@@ -30,6 +30,7 @@ import {
   Heart,
 } from "lucide-react";
 import { doctors, hospitalInfo, galleryItems } from "@/data/hospital";
+import virtualTourVideo from "@/assets/videos/virtualtour.mp4";
 import certNabh from "@/assets/cert-nabh.svg";
 import certIso from "@/assets/cert-iso.svg";
 import certJci from "@/assets/cert-jci.svg";
@@ -414,14 +415,7 @@ const Index = () => {
                 poster={hospitalInfo.images.exteriorWide}
                 className="w-full h-full object-cover"
               >
-                <source
-                  src="https://videos.pexels.com/video-files/4079098/4079098-uhd_2560_1440_25fps.mp4"
-                  type="video/mp4"
-                />
-                <source
-                  src="https://videos.pexels.com/video-files/4769449/4769449-uhd_2560_1440_25fps.mp4"
-                  type="video/mp4"
-                />
+                <source src={virtualTourVideo} type="video/mp4" />
               </video>
               <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
               <div className="absolute bottom-5 left-5 right-5 flex items-center justify-between text-white pointer-events-none">

@@ -12,6 +12,9 @@ import {
 import { Link } from "react-router-dom";
 import { toast } from "sonner";
 import { hospitalInfo } from "@/data/hospital";
+import { submitToFormspree } from "@/lib/formspree";
+
+const CONTACT_FORMSPREE_ENDPOINT = import.meta.env.VITE_FORMSPREE_CONTACT_ENDPOINT || "https://formspree.io/f/mvzlbyvn";
 
 const contactBlocks = [
   {
@@ -74,8 +77,9 @@ const departmentsContact = [
 
 const Contact = () => {
   const [form, setForm] = useState({ name: "", phone: "", email: "", subject: "", message: "" });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim());
     const phoneOk = !form.phone.trim() || /^[6-9]\d{9}$/.test(form.phone.trim());
@@ -92,6 +96,23 @@ const Contact = () => {
       toast.error("Please enter a valid 10-digit mobile number");
       return;
     }
+    setIsSubmitting(true);
+    const result = await submitToFormspree(CONTACT_FORMSPREE_ENDPOINT, {
+      formType: "Contact Message",
+      name: form.name,
+      phone: form.phone || "Not provided",
+      email: form.email,
+      subject: form.subject || "Website enquiry",
+      message: form.message,
+      page: window.location.href,
+    });
+    setIsSubmitting(false);
+
+    if (!result.ok) {
+      toast.error(result.message);
+      return;
+    }
+
     toast.success("Message sent! We'll respond within 24 hours.");
     setForm({ name: "", phone: "", email: "", subject: "", message: "" });
   };
@@ -100,8 +121,8 @@ const Contact = () => {
     <Layout>
       <PageHeader
         eyebrow="Contact Us"
-        title="We're here for you, anytime"
-        subtitle="Reach out for appointments, second opinions, queries or emergency support — our team responds quickly."
+        title="Contact Kamla Hospital Jhansi"
+        subtitle="Reach out for appointments, emergency support, OPD queries, diagnostics, directions or patient assistance — our team responds quickly."
       />
 
       {/* Quick contact cards */}
@@ -208,7 +229,7 @@ const Contact = () => {
               <h2 className="font-display text-2xl md:text-3xl font-extrabold mb-2">Tell us how we can help</h2>
               <p className="text-sm text-muted-foreground mb-6">We typically reply within one business day.</p>
 
-              <form onSubmit={handleSubmit} className="space-y-4">
+              <form onSubmit={handleSubmit} className="space-y-4" aria-label="Contact message form">
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div>
                     <Label htmlFor="cname" className="mb-1.5">Name *</Label>
@@ -231,8 +252,8 @@ const Contact = () => {
                   <Label htmlFor="cmessage" className="mb-1.5">Message *</Label>
                   <Textarea id="cmessage" rows={5} required value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} />
                 </div>
-                <Button type="submit" variant="hero" size="lg" className="w-full">
-                  <Send className="w-4 h-4 mr-1" /> Send message
+                <Button type="submit" variant="hero" size="lg" className="w-full" aria-label="Submit contact message" disabled={isSubmitting}>
+                  <Send className="w-4 h-4 mr-1" /> {isSubmitting ? "Sending..." : "Send message"}
                 </Button>
                 <p className="text-xs text-center text-muted-foreground">
                   For medical emergencies, please call <a href={`tel:${hospitalInfo.phone.emergency}`} className="font-bold text-red-600 hover:underline">{hospitalInfo.phone.emergency}</a>

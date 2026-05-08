@@ -22,8 +22,8 @@ const Gallery = () => {
     <Layout>
       <PageHeader
         eyebrow="Gallery"
-        title="Kamla Hospital moments & facilities"
-        subtitle="Explore our hospital building, diagnostic services, wards, operation theatre and patient care spaces."
+        title="Kamla Hospital Jhansi facilities & moments"
+        subtitle="Explore Kamla Hospital Jhansi infrastructure, diagnostics, wards, ICU/NICU support areas, operation theatre, patient care spaces and hospital moments."
       />
 
       {/* Featured Video */}
@@ -35,6 +35,8 @@ const Gallery = () => {
               <div className="absolute -inset-2 bg-gradient-to-tr from-primary/30 via-yellow-300/20 to-primary-glow/30 blur-2xl opacity-50 group-hover:opacity-80 transition-opacity rounded-[2rem]" />
               <div className="relative aspect-video bg-primary/10 rounded-[2rem] overflow-hidden">
                 <video
+                  aria-label="Kamla Hospital Jhansi virtual tour video"
+                  preload="metadata"
                   autoPlay
                   muted
                   loop
@@ -101,6 +103,8 @@ const Gallery = () => {
             {cats.map((c) => (
               <button
                 key={c}
+                type="button"
+                aria-label={`Show ${c} gallery items`}
                 onClick={() => setCat(c)}
                 className={`shrink-0 px-5 py-2 rounded-full text-sm font-semibold transition-all duration-200 ${
                   cat === c
@@ -118,6 +122,8 @@ const Gallery = () => {
             {items.map((item, i) => (
               <button
                 key={item.id}
+                type="button"
+                aria-label={`Open gallery image: ${item.title}`}
                 onClick={() => setActiveIndex(i)}
                 className="group relative w-full overflow-hidden rounded-2xl border border-border shadow-soft hover:shadow-strong transition-all duration-300 text-left animate-fade-in-up"
                 style={{ animationDelay: `${i * 40}ms` }}
@@ -153,6 +159,8 @@ const Gallery = () => {
         >
           {/* Close */}
           <button
+            type="button"
+            aria-label="Close gallery lightbox"
             className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors z-10"
             onClick={() => setActiveIndex(null)}
           >
@@ -161,6 +169,8 @@ const Gallery = () => {
 
           {/* Prev */}
           <button
+            type="button"
+            aria-label="Show previous gallery image"
             className="absolute left-4 md:left-8 w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors z-10"
             onClick={(e) => { e.stopPropagation(); prev(); }}
           >
@@ -169,6 +179,8 @@ const Gallery = () => {
 
           {/* Next */}
           <button
+            type="button"
+            aria-label="Show next gallery image"
             className="absolute right-4 md:right-8 w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors z-10"
             onClick={(e) => { e.stopPropagation(); next(); }}
           >

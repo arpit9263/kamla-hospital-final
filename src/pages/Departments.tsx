@@ -50,7 +50,7 @@ const Departments = () => {
 
   return (
     <Layout>
-      <PageHeader eyebrow="Departments" title="Specialized care, expert teams" subtitle="Explore our centers of excellence — each led by experienced specialists using the latest medical technology.">
+      <PageHeader eyebrow="Departments" title="Specialized departments for complete care" subtitle="Explore Kamla Hospital Jhansi departments for ENT, Gastro & Liver, Orthopedic, Cardiology, Ophthalmology, Gynecology, Surgery, diagnostics and emergency care.">
         <div className="relative max-w-md mx-auto mt-8">
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
           <Input
@@ -72,6 +72,7 @@ const Departments = () => {
             <div className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1 md:mx-0 md:flex-wrap md:justify-end md:overflow-visible md:px-0 md:pb-0">
               <button
                 type="button"
+                aria-label="Show all departments"
                 onClick={() => handleFilterClick("all")}
                 className={cn(
                   "shrink-0 rounded-full border px-4 py-2 text-xs font-semibold transition-smooth",
@@ -84,6 +85,7 @@ const Departments = () => {
                 <button
                   key={d.id}
                   type="button"
+                  aria-label={`Show ${d.name} department`}
                   onClick={() => handleFilterClick(d.id)}
                   className={cn(
                     "shrink-0 rounded-full border px-4 py-2 text-xs font-semibold transition-smooth",

@@ -85,8 +85,8 @@ const Services = () => {
     <Layout>
       <PageHeader
         eyebrow="Services"
-        title="Comprehensive healthcare services"
-        subtitle="From emergency to wellness, every service you need under one roof — with specialist care and modern facilities."
+        title="Comprehensive hospital services in Jhansi"
+        subtitle="From 24x7 emergency care to OPD consultation, diagnostics, ICU/NICU/ICCU, surgery, ambulance support and patient services — all under one roof at Kamla Hospital Jhansi."
       />
 
       <section className="section-padding">

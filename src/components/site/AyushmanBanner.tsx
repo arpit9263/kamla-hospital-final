@@ -42,8 +42,8 @@ const AyushmanBanner = () => {
               <button
                 type="button"
                 onClick={() => setVisible(false)}
+                aria-label="Close Ayushman Bharat banner"
                 className="w-6 h-6 flex items-center justify-center rounded-full hover:bg-white/20 transition-colors"
-                aria-label="Dismiss banner"
               >
                 <X className="w-3.5 h-3.5" />
               </button>

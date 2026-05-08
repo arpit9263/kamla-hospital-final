@@ -34,6 +34,7 @@ const AyushmanFloatingWidget = () => {
                   <button
                     type="button"
                     onClick={() => setOpen(false)}
+                    aria-label="Close Ayushman Bharat information"
                     className="w-6 h-6 rounded-full bg-white/10 hover:bg-white/25 flex items-center justify-center transition-colors mt-0.5"
                   >
                     <X className="w-3.5 h-3.5" />

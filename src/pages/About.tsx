@@ -8,8 +8,8 @@ const About = () => {
     <Layout>
       <PageHeader
         eyebrow="About Us"
-        title="A legacy of healing since 1998"
-        subtitle="Kamla Hospital provides specialist consultation, emergency care and diagnostic services with a patient-first approach."
+        title="Trusted healthcare in Jhansi since 1998"
+        subtitle="Kamla Hospital Jhansi provides multi-specialty consultation, 24x7 emergency care, diagnostics, ICU/NICU/ICCU support and patient-first treatment guidance."
       />
 
       <section className="section-padding">
@@ -25,11 +25,48 @@ const About = () => {
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-primary mb-3">Our Story</p>
             <h2 className="font-display text-3xl md:text-5xl font-extrabold mb-6">Built on care, powered by innovation</h2>
             <p className="text-muted-foreground leading-relaxed mb-4">
-              Kamla Hospital brings experienced doctors, emergency support and diagnostic facilities together to serve patients with reliable and compassionate care.
+              Kamla Hospital brings experienced doctors, emergency support, modern diagnostics and multi-specialty facilities together to serve patients in Jhansi with reliable, ethical and compassionate care.
             </p>
             <p className="text-muted-foreground leading-relaxed">
               Our OPD timing is 10:00 AM to 7:00 PM and emergency service is available 24x7. Diagnostic services include X-Ray, MRI, CT Scan, Lab Tests and other diagnostic services.
             </p>
+          </div>
+        </div>
+      </section>
+
+
+
+      <section className="section-padding bg-gradient-soft">
+        <div className="container-tight">
+          <div className="text-center max-w-3xl mx-auto mb-10">
+            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-primary mb-3">Leadership</p>
+            <h2 className="font-display text-3xl md:text-5xl font-extrabold mb-4">Guided by experienced leadership</h2>
+            <p className="text-muted-foreground leading-relaxed">
+              Kamla Hospital is strengthened by a committed leadership team focused on ethical healthcare, patient comfort and continuous improvement in hospital services.
+            </p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-6">
+            <div className="p-7 rounded-2xl bg-card border border-border shadow-soft animate-fade-in-up">
+              <p className="text-xs font-bold uppercase tracking-[0.18em] text-primary mb-2">Founder & Chairman</p>
+              <h3 className="font-display font-bold text-2xl mb-2">Dr. Vinod Misuriya</h3>
+              <p className="text-muted-foreground leading-relaxed">
+                Founder and Chairman of Kamla Hospital, providing experienced clinical vision and patient-first guidance.
+              </p>
+            </div>
+            <div className="p-7 rounded-2xl bg-card border border-border shadow-soft animate-fade-in-up" style={{ animationDelay: "80ms" }}>
+              <p className="text-xs font-bold uppercase tracking-[0.18em] text-primary mb-2">Managing Director</p>
+              <h3 className="font-display font-bold text-2xl mb-2">Rajat Misuriya</h3>
+              <p className="text-muted-foreground leading-relaxed">
+                Managing Director, contributing to hospital operations, service quality and patient support systems.
+              </p>
+            </div>
+            <div className="p-7 rounded-2xl bg-card border border-border shadow-soft animate-fade-in-up" style={{ animationDelay: "160ms" }}>
+              <p className="text-xs font-bold uppercase tracking-[0.18em] text-primary mb-2">Managing Director</p>
+              <h3 className="font-display font-bold text-2xl mb-2">Archna Misuriya</h3>
+              <p className="text-muted-foreground leading-relaxed">
+                Managing Director, supporting compassionate care standards and smooth patient experience across hospital services.
+              </p>
+            </div>
           </div>
         </div>
       </section>
@@ -89,7 +126,7 @@ const About = () => {
               hospitalInfo.images.ot,
               hospitalInfo.images.pharmacy,
             ].map((img, i) => (
-              <img key={i} src={img} alt={`Kamla Hospital facility `} loading="lazy" className="h-64 w-full object-cover rounded-2xl shadow-soft border border-border" />
+              <img key={i} src={img} alt={`Kamla Hospital facility image ${i + 1}`} loading="lazy" className="h-64 w-full object-cover rounded-2xl shadow-soft border border-border" />
             ))}
           </div>
         </div>

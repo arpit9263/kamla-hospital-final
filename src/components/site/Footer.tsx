@@ -132,7 +132,7 @@ const Footer = () => {
                 placeholder="your@email.com"
                 className="flex-1 lg:w-72 bg-transparent text-sm text-white placeholder-white/40 px-4 py-2 outline-none"
               />
-              <button type="submit" className="flex items-center gap-1.5 bg-yellow-400 hover:bg-yellow-300 text-primary text-sm font-bold rounded-full px-4 py-2 transition-colors">
+              <button type="submit" aria-label="Subscribe to health updates" className="flex items-center gap-1.5 bg-yellow-400 hover:bg-yellow-300 text-primary text-sm font-bold rounded-full px-4 py-2 transition-colors">
                 Subscribe <Send className="w-3.5 h-3.5" />
               </button>
             </form>
@@ -145,11 +145,7 @@ const Footer = () => {
           <div>
             <Link to="/" className="flex items-center gap-3 mb-5 group">
               <div className="bg-white rounded-xl p-1.5 inline-block shadow-medium ring-1 ring-white/30 group-hover:scale-105 transition-transform">
-                <img src={hospitalInfo.logo} alt={hospitalInfo.name + " logo"} className="w-12 h-12 object-contain rounded-lg" />
-              </div>
-              <div className="leading-tight">
-                <p className="font-display font-extrabold text-xl text-white">{hospitalInfo.name}</p>
-                <p className="text-[10px] uppercase tracking-[0.18em] text-yellow-300/90 font-semibold">{hospitalInfo.tagline}</p>
+                <img src={hospitalInfo.logo} alt={hospitalInfo.name + " logo"} className="w-48 h-20 object-contain rounded-lg" />
               </div>
             </Link>
             <p className="text-sm text-white/65 leading-relaxed mb-5">

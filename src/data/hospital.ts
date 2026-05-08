@@ -8,7 +8,7 @@ import doc7 from "@/assets/AnkurNeekhra.jpeg";
 import doc8 from "@/assets/rajatMisuriya.jpeg";
 import doc9 from "@/assets/neelamKumari.jpeg";
 import doc10 from "@/assets/amanjeetSingh.jpeg";
-import logo from "@/assets/kamla-logo.svg";
+import logo from "@/assets/kamla-hospital-official-logo.jpg";
 import exterior from "@/assets/kamla-exterior.jpeg";
 import exteriorWide from "@/assets/kamla-exterior-wide.jpeg";
 import ultrasound from "@/assets/kamla-ultrasound.jpeg";
@@ -77,9 +77,9 @@ export const doctors: Doctor[] = [
 ];
 
 export const testimonials = [
-  { name: "Patient Family", role: "Emergency care", text: "Kamla Hospital team provided timely support and caring treatment during an emergency.", rating: 5 },
-  { name: "OPD Patient", role: "Consultation", text: "Doctors explained everything clearly and the staff was helpful throughout the visit.", rating: 5 },
-  { name: "Diagnostic Patient", role: "Diagnostics", text: "X-Ray, lab and diagnostic services were available smoothly under one roof.", rating: 5 },
+  { name: "Emergency Care Feedback", role: "Emergency & trauma support", text: "The hospital team provided quick attention, clear guidance and supportive care during an urgent situation.", rating: 5 },
+  { name: "OPD Consultation Feedback", role: "Specialist consultation", text: "The doctors explained the treatment plan clearly and the support staff helped throughout the OPD visit.", rating: 5 },
+  { name: "Diagnostics Feedback", role: "X-Ray, lab and testing services", text: "Diagnostic facilities were available under one roof, making the patient visit smoother and more convenient.", rating: 5 },
 ];
 
 export const faqs = [
@@ -104,3 +104,9 @@ export const galleryItems: GalleryItem[] = [
   { id: "pharmacy", title: "Ratna Medical Store", category: "Hospital", image: pharmacy },
   { id: "doctor-care", title: "Doctor Consultation Moment", category: "Doctors", image: ultrasound },
 ];
+
+
+export const leadershipInfo = {
+  managingDirectors: ["Rajat Misuriya","Archna Misuriya"],
+  founderChairman: "Dr. Vinod Misuriya"
+};

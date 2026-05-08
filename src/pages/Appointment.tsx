@@ -7,7 +7,7 @@ import { hospitalInfo } from "@/data/hospital";
 const Appointment = () => {
   return (
     <Layout>
-      <PageHeader eyebrow="Book Appointment" title="Schedule your visit" subtitle="Fill in the form below and our team will confirm your appointment within 30 minutes." />
+      <PageHeader eyebrow="Book Appointment" title="Book OPD & specialist appointment" subtitle="Fill in the form below for OPD consultation, specialist appointment, diagnostics or patient support at Kamla Hospital Jhansi." />
 
       <section className="section-padding">
         <div className="container-tight grid lg:grid-cols-3 gap-8">

@@ -142,7 +142,7 @@ const NavItemWithDropdown = ({ to, label, dropdown }: DropdownItemProps) => {
       onMouseEnter={() => setOpen(true)}
       onMouseLeave={() => setOpen(false)}
     >
-      <button type="button" onClick={() => setOpen((v) => !v)}
+      <button type="button" aria-label={`Toggle ${label} menu`} onClick={() => setOpen((v) => !v)}
         className={cn("flex items-center gap-1", baseClasses, isActive || open ? activeClass : inactiveClass)}
       >
         {label}
@@ -219,16 +219,8 @@ const Header = () => {
               <img
                 src={hospitalInfo.logo}
                 alt={hospitalInfo.name + " logo"}
-                className="relative w-10 h-10 md:w-14 md:h-14 object-contain drop-shadow-sm group-hover:scale-105 transition-transform duration-300"
+                className="relative w-36 h-12 sm:w-44 sm:h-14 md:w-56 md:h-20 object-contain drop-shadow-sm group-hover:scale-105 transition-transform duration-300"
               />
-            </div>
-            <div className="block leading-tight min-w-0 max-w-[230px] sm:max-w-none">
-              <p className="font-display text-sm min-[390px]:text-base md:text-xl font-extrabold text-primary tracking-tight truncate">
-                {hospitalInfo.name}
-              </p>
-              <p className="hidden min-[390px]:block text-[8px] md:text-[11px] uppercase tracking-[0.12em] md:tracking-[0.18em] text-muted-foreground font-semibold truncate">
-                {hospitalInfo.tagline}
-              </p>
             </div>
           </Link>
 
@@ -268,7 +260,8 @@ const Header = () => {
           <button
             className="lg:hidden shrink-0 p-2 rounded-lg hover:bg-accent text-foreground transition-smooth"
             onClick={() => setMobileOpen(!mobileOpen)}
-            aria-label="Toggle menu"
+            aria-label={mobileOpen ? "Close main menu" : "Open main menu"}
+            aria-expanded={mobileOpen}
           >
             {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
@@ -314,6 +307,8 @@ const Header = () => {
               {/* Departments accordion */}
               <div>
                 <button type="button"
+                  aria-label="Toggle departments menu"
+                  aria-expanded={mobileExpanded === "depts"}
                   className="w-full flex items-center justify-between px-4 py-3 rounded-xl text-sm font-medium hover:bg-accent/60 transition-smooth"
                   onClick={() => setMobileExpanded(mobileExpanded === "depts" ? null : "depts")}
                 >
@@ -350,6 +345,8 @@ const Header = () => {
               {/* Services accordion */}
               <div>
                 <button type="button"
+                  aria-label="Toggle services menu"
+                  aria-expanded={mobileExpanded === "services"}
                   className="w-full flex items-center justify-between px-4 py-3 rounded-xl text-sm font-medium hover:bg-accent/60 transition-smooth"
                   onClick={() => setMobileExpanded(mobileExpanded === "services" ? null : "services")}
                 >

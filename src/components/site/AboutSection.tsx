@@ -55,7 +55,7 @@ const AboutSection = () => {
               <span className="text-gradient-gold">Jhansi</span>.
             </h2>
             <p className="text-muted-foreground text-base md:text-lg leading-relaxed mb-5">
-              For over four decades, Kamla Hospital has been a trusted name in multi-specialty
+              Kamla Hospital Jhansi is a trusted name in multi-specialty
               healthcare — bringing together experienced specialists, modern diagnostics and a
               patient-first culture under one roof.
             </p>

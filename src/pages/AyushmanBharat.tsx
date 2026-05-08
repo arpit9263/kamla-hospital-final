@@ -17,7 +17,7 @@ const steps = ["Visit Kamla Hospital help desk or OPD", "Share Ayushman card and
 
 const AyushmanBharat = () => (
   <Layout>
-    <PageHeader eyebrow="Ayushman Bharat / PM-JAY" title="Cashless treatment support for eligible families" subtitle="Structured guidance, document verification and treatment process support at Kamla Hospital." />
+    <PageHeader eyebrow="Ayushman Bharat / PM-JAY" title="Ayushman Bharat & PM-JAY treatment support in Jhansi" subtitle="Get eligibility guidance, document verification and cashless treatment process support at Kamla Hospital Jhansi as per Ayushman Bharat / PM-JAY rules." />
 
     <section className="section-padding">
       <div className="container-tight">
@@ -26,7 +26,7 @@ const AyushmanBharat = () => (
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-primary mb-3">Overview</p>
             <h2 className="font-display text-3xl md:text-5xl font-extrabold mb-4">Ayushman Bharat Available</h2>
             <p className="text-muted-foreground leading-relaxed mb-6">
-              Ayushman Bharat Pradhan Mantri Jan Arogya Yojana (PM-JAY) is a government health protection scheme for eligible families. Kamla Hospital assists patients with eligibility checks, document verification and treatment processing according to scheme guidelines.
+              Ayushman Bharat Pradhan Mantri Jan Arogya Yojana (PM-JAY) is a government health protection scheme for eligible families. Kamla Hospital Jhansi assists patients with eligibility checks, document verification, package guidance and treatment processing according to scheme guidelines.
             </p>
             <Button asChild variant="hero" size="lg"><a href={`tel:${hospitalInfo.phone.reception}`}>Call Reception: {hospitalInfo.phone.reception}</a></Button>
           </div>
