@@ -17,7 +17,7 @@ import certGreenot from "@/assets/cert-greenot.svg";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 28 },
-  show: (i = 0) => ({ opacity: 1, y: 0, transition: { duration: 0.6, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] } }),
+  show: (i = 0) => ({ opacity: 1, y: 0, transition: { duration: 0.6, delay: i * 0.08, ease: "easeOut" as const } }),
 };
 
 /* ---------------- Counter ---------------- */
