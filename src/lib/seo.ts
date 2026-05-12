@@ -119,10 +119,18 @@ export const routeSeo: Record<string, SeoConfig> = {
     structuredData: hospitalStructuredData,
   },
   "/about": {
-    title: "About Kamla Hospital Jhansi | Trusted Healthcare Since 1998",
+    title: "About Kamla Hospital Jhansi | Best Multi-Specialty Hospital in Jhansi Since 1998",
     description:
-      "Learn about Kamla Hospital Jhansi, its founder and chairman Dr. Vinod Misuriya, managing directors Rajat Misuriya and Archna Misuriya, 120-bed infrastructure, emergency services and specialist care.",
+      "Kamla Hospital Jhansi is a leading multi-specialty hospital in Jhansi with 25+ years of trust, 120 beds, ICU/NICU/ICCU, 24x7 emergency, advanced diagnostics and Ayushman Bharat support — founded by Dr. Vinod Misuriya.",
     canonicalPath: "/about",
+    structuredData: {
+      "@context": "https://schema.org",
+      "@type": "AboutPage",
+      name: "About Kamla Hospital Jhansi",
+      description: "About one of the best multi-specialty hospitals in Jhansi — leadership, mission, infrastructure and 24x7 emergency care.",
+      url: `${SITE_URL}/about`,
+      mainEntity: hospitalStructuredData,
+    },
   },
   "/departments": {
     title: "Departments at Kamla Hospital Jhansi | ENT, Gastro, Ortho, ICU & Surgery",
@@ -137,10 +145,20 @@ export const routeSeo: Record<string, SeoConfig> = {
     canonicalPath: "/doctors",
   },
   "/ayushman-bharat": {
-    title: "Ayushman Bharat Hospital in Jhansi | PM-JAY Support at Kamla Hospital",
+    title: "Ayushman Bharat Hospital in Jhansi | PM-JAY Cashless Treatment at Kamla Hospital",
     description:
-      "Kamla Hospital Jhansi supports eligible Ayushman Bharat and PM-JAY patients with document verification, cashless treatment guidance and hospital assistance as per scheme rules.",
+      "Kamla Hospital Jhansi is empanelled under Ayushman Bharat (PM-JAY) — get eligibility check, document verification, cashless treatment for approved packages, ICU care and 24x7 emergency support.",
     canonicalPath: "/ayushman-bharat",
+    structuredData: {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: [
+        { "@type": "Question", name: "Is Kamla Hospital Jhansi empanelled under Ayushman Bharat (PM-JAY)?", acceptedAnswer: { "@type": "Answer", text: "Yes. Kamla Hospital Jhansi supports eligible Ayushman Bharat beneficiaries with cashless treatment for approved packages as per PM-JAY rules." } },
+        { "@type": "Question", name: "How do I check if I am eligible for PM-JAY?", acceptedAnswer: { "@type": "Answer", text: "Check eligibility on the official PM-JAY beneficiary portal or visit our help desk at Kamla Hospital Jhansi with your Aadhaar — our team will assist you." } },
+        { "@type": "Question", name: "What documents do I need to bring?", acceptedAnswer: { "@type": "Answer", text: "Ayushman card / PM-JAY ID, Aadhaar card, mobile number for OTP and any previous medical reports or admission advice from your doctor." } },
+        { "@type": "Question", name: "How much treatment cost is covered?", acceptedAnswer: { "@type": "Answer", text: "PM-JAY provides up to ₹5 lakh per family per year for approved treatment packages, subject to scheme rules and package availability." } },
+      ],
+    },
   },
   "/gallery": {
     title: "Gallery | Kamla Hospital Jhansi Infrastructure, Facilities & Patient Care",
