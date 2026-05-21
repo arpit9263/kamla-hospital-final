@@ -4,7 +4,7 @@ import { departments } from "@/data/hospital";
 import { iconMap } from "@/lib/icons";
 
 const ayushmanEligibleIds = new Set([
-  "cardiology", "orthopedics", "neurology", "general-surgery", "obstetrics", "pediatrics",
+  "cardiology", "orthopedics-paediatrics", "neurosurgery", "general-surgery", "gynecology",
 ]);
 
 const DepartmentsGrid = ({ limit }: { limit?: number }) => {

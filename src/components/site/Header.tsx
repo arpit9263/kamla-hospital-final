@@ -8,7 +8,8 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { hospitalInfo } from "@/data/hospital";
+import { iconMap } from "@/lib/icons";
+import { departments, hospitalInfo } from "@/data/hospital";
 
 const servicesMenu = [
   { icon: Ambulance,    label: "Emergency & Trauma",  desc: "Emergency available 24x7", to: "/services" },
@@ -21,16 +22,11 @@ const servicesMenu = [
   { icon: Syringe,      label: "Surgical Care",        desc: "OT and surgical support", to: "/services" },
 ];
 
-const departmentsMenu = [
-  { icon: Stethoscope,  label: "ENT",                  to: "/departments?department=ent" },
-  { icon: Activity,     label: "Gastro & Liver",       to: "/departments?department=gastro-liver" },
-  { icon: Bone,         label: "Orthopedic",           to: "/departments?department=orthopedics" },
-  { icon: Heart,        label: "Cardiology",           to: "/departments?department=cardiology" },
-  { icon: Eye,          label: "Ophthalmology",        to: "/departments?department=ophthalmology" },
-  { icon: Stethoscope,  label: "General & Pulmonary",  to: "/departments?department=general-pulmonary" },
-  { icon: Smile,        label: "Dental & Maxillofacial", to: "/departments?department=dental" },
-  { icon: Brain,        label: "Neurosurgery",         to: "/departments?department=neurosurgery" },
-];
+const departmentsMenu = departments.map((department) => ({
+  icon: iconMap[department.icon] ?? Stethoscope,
+  label: department.name,
+  to: `/departments?department=${department.id}`,
+}));
 
 const dropdownVariants = {
   hidden:  { opacity: 0, y: -6, scale: 0.98 },

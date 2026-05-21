@@ -471,7 +471,7 @@ const About = () => {
               <div>
                 <p className="text-xs font-bold uppercase tracking-[0.2em] text-[hsl(var(--gold))] mb-3">Doctor Excellence</p>
                 <h3 className="font-display text-3xl md:text-4xl font-extrabold mb-4">Meet the senior specialists of Kamla Hospital</h3>
-                <p className="text-white/85 leading-relaxed mb-6">10+ experienced consultants across ENT, Orthopedic, Cardiology, Gastro, Gynaecology, Neurosurgery and General Surgery — ready to guide your treatment.</p>
+                <p className="text-white/85 leading-relaxed mb-6">10+ experienced consultants across ENT, General Medicine, Pulmonary Medicine, Orthopedics, Cardiology, Gastro, Gynecology, Neurosurgery and General Surgery — ready to guide your treatment.</p>
                 <div className="flex flex-wrap gap-3">
                   <Button asChild size="lg" className="bg-[hsl(var(--gold))] text-foreground hover:bg-[hsl(var(--gold))]/90"><a href="/doctors">View Doctors</a></Button>
                   <Button asChild variant="outline" size="lg" className="border-white/40 text-white hover:bg-white/10"><a href="/appointment">Book Appointment</a></Button>

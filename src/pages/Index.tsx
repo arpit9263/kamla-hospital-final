@@ -232,7 +232,7 @@ const Index = () => {
       </section>
 
       {/* Doctors */}
-      <section className="section-padding">
+      {/* <section className="section-padding">
         <div className="container-tight">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
             <div className="max-w-xl">
@@ -252,7 +252,7 @@ const Index = () => {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Our Facilities */}
       <section className="section-padding bg-gradient-soft">

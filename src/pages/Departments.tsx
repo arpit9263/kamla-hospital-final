@@ -50,7 +50,7 @@ const Departments = () => {
 
   return (
     <Layout>
-      <PageHeader eyebrow="Departments" title="Specialized departments for complete care" subtitle="Explore Kamla Hospital Jhansi departments for ENT, Gastro & Liver, Orthopedic, Cardiology, Ophthalmology, Gynecology, Surgery, diagnostics and emergency care.">
+      <PageHeader eyebrow="Departments" title="Specialized departments for complete care" subtitle="Explore Kamla Hospital Jhansi departments for Cardiology, Cardio Thoracic Surgery, General Surgery, General Medicine, Pulmonary Medicine, ENT, Orthopedics & Paediatrics, Dental & Maxillofacial, Gastro & Liver, Ophthalmology, Gynecology and Neurosurgery.">
         <div className="relative max-w-md mx-auto mt-8">
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
           <Input
